@@ -1,3 +1,6 @@
 from django.contrib import admin
+from Comanda.models import Comanda, Ingredient, Categoria
 
-# Register your models here.
+admin.site.register(Categoria)
+admin.site.register(Ingredient)
+admin.site.register(Comanda)

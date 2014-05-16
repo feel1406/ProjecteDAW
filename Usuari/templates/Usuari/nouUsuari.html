@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Nou Client</title>
+{% endblock %}
+
+{% block content %}
+<blockquote>
+  <h2>Crea un perfil de client.</h2>
+  <h3><small>I fes les teves comandes des de qualsevol lloc!</small></h3>
+</blockquote>
+<form role="form" action="" method="post">{% csrf_token %}
+  {% for field in form %}
+  <div class="fieldWrapper">
+  	{{ field.errors }}
+  	{{ field }}
+  	<br>
+  </div>
+  {% endfor %}
+  <button type="button" class="btn btn-success">Crear Compte</button>
+</form>
+
+{% endblock content %}

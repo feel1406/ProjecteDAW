@@ -57,3 +57,14 @@
 		background-color: #78a6bf;
 	}
 }
+
+.container{
+	height: 100%;
+}
+
+.pie{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	text-align: center;
+}
