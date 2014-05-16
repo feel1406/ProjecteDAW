@@ -72,7 +72,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ca'
 
 TIME_ZONE = 'UTC'
 
@@ -95,4 +95,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
             os.path.join(BASE_DIR, 'staticProjecte'),
+)
+
+TEMPLATE_DIRS = (
+                 os.path.join(BASE_DIR, 'templates')
 )
