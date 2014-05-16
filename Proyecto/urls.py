@@ -10,5 +10,8 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^Usuari/', include('Usuari.urls', namespace = 'Usuari'))
+    url(r'^Usuari/', include('Usuari.urls', namespace = 'Usuari')),
+
+    url(r'^Comanda/', include('Comanda.urls', namespace = 'Comanda')),
+    
 )
