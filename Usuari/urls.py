@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     
     url(r'^perfilClient/', views.PerfilClient, name='perfilClient'),
     
-    url(r'^sortir/', views.logout, name = "sortir"),
+    url(r'^accedir/', views.Accedir, name='accedir'),
+    
+    url(r'^sortir/', views.Sortir, name = "sortir"),
 
 )

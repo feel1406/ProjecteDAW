@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Accedir</title>
+{% endblock %}
+
+{% block content %}
+<blockquote>
+  <h2>Accedeix al teu compte de client.</h2>
+  <h3><small>Fes noves comandes, gestiona les comandes pendents i modifica les teves dades.</small></h3>
+</blockquote>
+<form role="form" action="" method="post">{% csrf_token %}
+  {% for field in formulariEntrada %}
+  <div class="form-group">
+  	{{ field.errors }}
+  	{{ field }}
+  </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-primary">Accedir</button>
+</form>
+
+{% endblock content %}

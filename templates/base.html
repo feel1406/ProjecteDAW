@@ -15,6 +15,8 @@
 		<!-- Scripts de jQuery, jQuery Mobile i al fitxer JavaScript propietari  -->
 		<script src="{% static 'javascript/jquery-1.11.1.min.js' %}"></script>
 		<script src="{% static 'javascript/javascript.js' %}"></script>
+		<!-- Script de PNotify -->
+		<script src="{% static 'javascript/pnotify.custom.min.js' %}"></script>
 		<!-- Favicon de la plana web -->
 		<link rel="shortcut icon" href="{% static 'img/logo-pizza.png' %}">
 		<link rel="apple-touch-icon" href="{% static 'img/logo-pizza.png' %}">
@@ -23,7 +25,8 @@
 		<link rel="stylesheet" href="{% static  'bootstrap/css/bootstrap.css' %}" />
 		<link rel="stylesheet" href="{% static  'bootstrap/css/bootstrap-theme.min.css' %}" />
 		<link rel="stylesheet" href="{% static  'bootstrap/css/bootstrap-theme.css' %}" />
-		<link rel="stylesheet" href="{% static  'bootstrap/css/bootstrap-theme.css.map' %}" />
+		<!-- Link a fitxer CSS de PNotify -->
+		<link rel="stylesheet" href="{% static  'css/pnotify.custom.min.css' %}" />
 		<link rel="stylesheet" href="{% static  'css/css.css' %}" />
 	</head>
 
@@ -40,7 +43,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-				      <a class="navbar-brand" href="{% url 'index' %}"><span class="glyphicon glyphicon-home"></span> Inici</a>
+				      <a class="navbar-brand" href="{% url 'Index' %}"><span class="glyphicon glyphicon-home"></span> Inici</a>
 				    </div>
 				    {% if user.is_authenticated %}
 				    <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,12 +53,12 @@
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span> Sobre Nosaltres <b class="caret"></b></a>
 				          <ul class="dropdown-menu">
-				            <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Qui Som</a></li>
-				            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Contacte</a></li>
+				            <li><a href="{% url 'QuiSom' %}"><span class="glyphicon glyphicon-question-sign"></span> Qui Som</a></li>
+				            <li><a href="{% url 'Contacte' %}"><span class="glyphicon glyphicon-envelope"></span> Contacte</a></li>
 				            <li class="divider"></li>
-				            <li><a href="#"><span class="glyphicon glyphicon-map-marker"></span> On Som?</a></li>
+				            <li><a href="{% url 'OnSom' %}"><span class="glyphicon glyphicon-map-marker"></span> On Som?</a></li>
 				            <li class="divider"></li>
-				            <li><a href="#"><span class="glyphicon glyphicon-paperclip"></span> Treballa Amb Nosaltres</a></li>
+				            <li><a href="{% url 'TreballaAmbNosaltres' %}"><span class="glyphicon glyphicon-paperclip"></span> Treballa Amb Nosaltres</a></li>
 				          </ul>
 				        </li>
 				      </ul>
@@ -79,17 +82,17 @@
 				        <li class="dropdown">
 				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-info-sign"></span> Sobre Nosaltres <b class="caret"></b></a>
 				          <ul class="dropdown-menu">
-				            <li><a href="#"><span class="glyphicon glyphicon-question-sign"></span> Qui Som</a></li>
-				            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> Contacte</a></li>
+				            <li><a href="{% url 'QuiSom' %}"><span class="glyphicon glyphicon-question-sign"></span> Qui Som</a></li>
+				            <li><a href="{% url 'Contacte' %}"><span class="glyphicon glyphicon-envelope"></span> Contacte</a></li>
 				            <li class="divider"></li>
-				            <li><a href="#"><span class="glyphicon glyphicon-map-marker"></span> On Som?</a></li>
+				            <li><a href="{% url 'OnSom' %}"><span class="glyphicon glyphicon-map-marker"></span> On Som?</a></li>
 				            <li class="divider"></li>
-				            <li><a href="#"><span class="glyphicon glyphicon-paperclip"></span> Treballa Amb Nosaltres</a></li>
+				            <li><a href="{% url 'TreballaAmbNosaltres' %}"><span class="glyphicon glyphicon-paperclip"></span> Treballa Amb Nosaltres</a></li>
 				          </ul>
 				        </li>
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
-				        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Accedir</a></li>
+				        <li><a href="{% url 'Usuari:accedir' %}"><span class="glyphicon glyphicon-log-in"></span> Accedir</a></li>
 				        <li><a href="{% url 'Usuari:nouClient' %}"><span class="glyphicon glyphicon-pencil"></span> Registra't</a></li>
 				      </ul>
 				    </div><!-- /.navbar-collapse -->
@@ -113,5 +116,22 @@
 			</footer>
 		</div>
 		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		{% if messages %}
+		<script>
+			$.pnotify.defaults.history = false;
+			$.pnotify.defaults.delay = 3000;
+			$(document).ready(function(){
+				{% for message in messages %}
+				$.pnotify({
+					text: '{{message}}',
+					type: '{{message.tags}}',
+					animation: 'show',
+					hide: true,
+					styling: 'bootstrap'
+				});
+				{% endfor %}
+			});
+		</script>
+		{% endif %}
 	</body>
 </html>

@@ -5,15 +5,15 @@
 
 {% block content %}
 <ol class="breadcrumb">
-  <li><a href="{% url 'index' %}">Inici</a></li>
+  <li><a href="{% url 'Index' %}">Inici</a></li>
   <li><a href="#">Comanda</a></li>
   <li class="active">Fer Comanda</li>
 </ol>
 {% if user.is_authenticated %}
 <div class="espaiTPV">
-	<div class="capcelera"></div>
-	<div class="cos"></div>
-	<div class="peu">
+	<div class="head"></div>
+	<div class="body"></div>
+	<div class="foot">
 		<p>
 			<span class="data">
 				<p id="dia"></p>
@@ -22,6 +22,18 @@
 		</p>
 	</div>
 </div>
+<script>
+	function getData(){
+		var data = new Date();
+		var hora;
+		var dia;
+		hora = data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds();
+		dia = data.getDate() + "/" + (data.getMonth() + 1) + "/" + data.getFullYear();
+		document.getElementById("dia").innerHTML = '<span class="glyphicon glyphicon-calendar"></span> ' + dia;
+		document.getElementById("hora").innerHTML = '<span class="glyphicon glyphicon-time"></span> ' + hora;
+	}
+	setInterval(getData, 1000);
+</script>
 {% else %}
 <blockquote>
   <h2>Per fer comandes on-line, és necessàri tenir compte de client.</h2>
@@ -74,6 +86,36 @@
         També tindràs accés a ofertes especials per a clients. Descomptes, preus especials, productes de la setmana i
         oferta del mes. Tot això només creant un compte!
         I amb cada compra, acumularàs punts per canviar-los per pizzes adicionals, postres extres, begudes i molt més.
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x200" alt="Aplicació Web ràpida per a qualsevol usuari">
+      <div class="caption">
+        <h3>Ràpid</h3>
+        <p>Amb la nostra aplicació web, podràs fer comandes ràpidament des de qualsevol dispositiu. Des de casa o al carrer. Des del teu PC o el smartphone.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x200" alt="Intuitiva. Fes la teva comanda a mida">
+      <div class="caption">
+        <h3>Intuiitiu</h3>
+        <p>Selecciona el producte que vols demanar, i fes a mida el teu menú. Afegeix els productes que vulguis.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img data-src="holder.js/300x200" alt="Facilitat de pagament. Targeta o efectiu!.">
+      <div class="caption">
+        <h3>Còmode</h3>
+        <p>Fes el pagament amb targeta o bé paga al nostre repartidor en efectiu quan t'ho portem. tu tries la opció que vulguis.</p>
       </div>
     </div>
   </div>

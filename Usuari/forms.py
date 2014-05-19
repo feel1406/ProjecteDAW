@@ -22,3 +22,12 @@ class DadesUsuari(ModelForm):
                    'telefon': forms.TextInput(attrs={'placeholder' : 'Telèfon', 'class' : 'form-control'}),
                    }
         fields = [ 'adreca', 'telefon']
+        
+class EntradaUsuari(ModelForm):
+    class Meta:
+        model = User
+        widgets = {
+                   'username': forms.TextInput(attrs={'placeholder' : 'Nom', 'class' : 'form-control'}),
+                   'password': forms.TextInput(attrs={'placeholder' : 'Contrasenya', 'class' : 'form-control', 'type' : 'password'})
+                   }
+        fields = [ 'username', 'password']

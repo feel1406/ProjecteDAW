@@ -12,10 +12,13 @@
 </blockquote>
 
 <form role="form" action="/Usuari/perfilClient/" method="post">{% csrf_token %}
-  {% for field in form %}
+  {% for field in formulariDades %}
   <div class="form-group">
-  	{{ field.errors }}
-  	{{ field }}
+  	<div class="input-group">
+  		<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+  		{{ field.errors }}
+  		{{ field }}
+  	</div>
   </div>
   {% endfor %}
   <button type="submit" class="btn btn-primary">Crear Client</button>

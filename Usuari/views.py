@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*- 
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from Usuari.forms import NouUsuariForm, DadesUsuari
+from Usuari.forms import NouUsuariForm, DadesUsuari, EntradaUsuari
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -52,6 +52,26 @@ def DadesClient(request):
 def PerfilClient(request):
     return render(request, 'Usuari/perfilUsuari.html')    
     
+def Accedir(request):
+    if request.method == 'POST':
+        formulariEntrada = EntradaUsuari(request.POST)
+        if formulariEntrada.is_valid():
+            usr = formulariEntrada.cleaned_data['username']
+            pswd = formulariEntrada.cleaned_data['password']
+            user = authenticate(username = usr, password = pswd)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    messages.add_message(request, messages.SUCCESS, 'Benvingut de nou ' + user.username + '.')
+                    url_next = reverse('Usuari/perfilUsuari.html')
+                    return HttpResponseRedirect(url_next)
+            else:
+                messages.add_message(request, messages.ERROR, 'Error en l\'accés. Torna a intentar-ho')
+    else:
+        formulariEntrada = EntradaUsuari()
+            
+    return render(request, 'Usuari/accedir.html', {'formulariEntrada' : formulariEntrada})
+    
 def Sortir(request):
     logout(request)
-    return render(request, 'index.html', {})
+    return HttpResponseRedirect('Index')

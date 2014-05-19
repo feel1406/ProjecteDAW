@@ -45,7 +45,7 @@
     per que notis el gust com preparat a casa teva!.
   </div>
 </div>
-<hr>
+<br>
 {% if user.is_authenticated %}
 <div class="jumbotron">
   <h1>Fes la teva comanda ara mateix!</h1>
@@ -53,12 +53,11 @@
 </div>
 {% else %}
 <div class="jumbotron">
-  <h2>Accedeix, o crea't un nou compte de client i disfruta dels avantatges on-line!</h2>
+  <h3>Accedeix, o crea't un nou compte de client i disfruta dels avantatges on-line!</h3>
   <ul>
   	<li>Prepara la teva pizza a mida</li>
   	<li>Enviament a domicili gratuït</li>
   	<li>Descomptes i ofertes</li>
-  	<li>...i molt més!</li>
   </ul>
   <p><a href="{% url 'Usuari:nouClient' %}" class="btn btn-primary btn-lg" role="button">Crear Compte</a></p>
 </div>
