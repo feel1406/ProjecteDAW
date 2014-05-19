@@ -1,10 +1,83 @@
 {% extends 'base.html' %}
 {% block title %}
 <title>Nova Comanda</title>
-{% endblock title %}
+{% endblock %}
 
 {% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Inici</a></li>
+  <li><a href="#">Comanda</a></li>
+  <li class="active">Fer Comanda</li>
+</ol>
+{% if user.is_authenticated %}
+<div class="espaiTPV">
+	<div class="capcelera"></div>
+	<div class="cos"></div>
+	<div class="peu">
+		<p>
+			<span class="data">
+				<p id="dia"></p>
+				<p id="hora"></p>
+			</span>
+		</p>
+	</div>
+</div>
+{% else %}
+<blockquote>
+  <h2>Per fer comandes on-line, és necessàri tenir compte de client.</h2>
+  <h3><small>Fes-te un compte i disfruta de grans avantatges únics!.</small></h3>
+</blockquote>
 
-<h2>Nova Comanda</h2>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          Comanda On-Line!
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+        Fes la teva comanda des de casa. Utilitza el teu ordinador, tablet o smartphone per realitzar la teva
+        comanda a CendraPizza. Disfruta de la comoditat i rapidesa del nostre servei de comandes web per 
+        gaudir dels millors productes alimentàris que t'oferim.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Enviament a domicili!
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        A més, t'oferim el servei a domicili d'entrega de la teva comanda. En mitja hora, tindràs a un dels nostres repartidors
+        a la teva porta. Ràpid, per a que disfrutis de la pizza recent feta i amb tot el gust.
+        A més, si ets client, el servei es gratuït!!.
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          Ofertes especials!
+        </a>
+      </h4>
+    </div>
+    <div id="collapseThree" class="panel-collapse collapse">
+      <div class="panel-body">
+        També tindràs accés a ofertes especials per a clients. Descomptes, preus especials, productes de la setmana i
+        oferta del mes. Tot això només creant un compte!
+        I amb cada compra, acumularàs punts per canviar-los per pizzes adicionals, postres extres, begudes i molt més.
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
-{% endblock %
+{% endblock %}

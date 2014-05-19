@@ -1,9 +1,66 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}
 <title>CendraPizza</title>
 {% endblock %}
 
 {% block content %}
+<ol class="breadcrumb">
+  <li class="active">Inici</li>
+</ol>
+<blockquote>
+  <h2>CendraPizza</h2>
+  <h3><small>Les Pizzes artesanes més bones del món!</small></h3>
+</blockquote>
 
-<h1>Inicio</h1>
+<div class="media">
+  <a class="pull-left" href="#">
+    <img class="media-object" src="{% static 'img/fornPizza.jpg' %}" height="64px" width="100px" alt="Fem pizzes artesanes.">
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">Pizza Artesanal</h4>
+    Demana la teva pizza amb total confiança. Els millors ingredients seleccionats, directes a la
+    teva taula!
+  </div>
+</div>
+<hr>
+<div class="media col-md-offset-2">
+  <a class="pull-left" href="#">
+    <img class="media-object" src="{% static 'img/campsBlatEmporda.jpg' %}" height="64px" width="100px" alt="Blat conreat a l'Alt Empordà.">
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">Feta aquí. Preparada aquí.</h4>
+   Preparem la massa amb farina de blat conreat al terme municipal d'Albanyà. Productes de casa, per 
+   que tinguis la màxima qualitat.
+  </div>
+</div>
+<hr>
+<div class="media">
+  <a class="pull-left" href="#">
+    <img class="media-object" src="{% static 'img/preparacioPizza.jpg' %}" height="64px" width="100px" alt="Els millors artesans de la pizza.">
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">Més de 10 anys d'experiència!.</h4>
+    A CendraPizza, tenim molta experiència preparant pizzes casolanes. Preparem la teva comanda a l'instant
+    per que notis el gust com preparat a casa teva!.
+  </div>
+</div>
+<hr>
+{% if user.is_authenticated %}
+<div class="jumbotron">
+  <h1>Fes la teva comanda ara mateix!</h1>
+  <p><a href="{% url 'Comanda:novaComanda' %}" class="btn btn-primary btn-lg" role="button">Fer Comanda</a></p>
+</div>
+{% else %}
+<div class="jumbotron">
+  <h2>Accedeix, o crea't un nou compte de client i disfruta dels avantatges on-line!</h2>
+  <ul>
+  	<li>Prepara la teva pizza a mida</li>
+  	<li>Enviament a domicili gratuït</li>
+  	<li>Descomptes i ofertes</li>
+  	<li>...i molt més!</li>
+  </ul>
+  <p><a href="{% url 'Usuari:nouClient' %}" class="btn btn-primary btn-lg" role="button">Crear Compte</a></p>
+</div>
+{% endif %}
 {% endblock %}

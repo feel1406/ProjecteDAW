@@ -5,6 +5,10 @@ urlpatterns = patterns('',
                        
     url(r'^nouClient/', views.NouClient, name='nouClient'),
     
-    url(r'^perfilClient/', views.NouClient, name='perfilClient')
+    url(r'^dadesClient/', views.DadesClient, name='dadesClient'),
+    
+    url(r'^perfilClient/', views.PerfilClient, name='perfilClient'),
+    
+    url(r'^sortir/', views.logout, name = "sortir"),
 
 )

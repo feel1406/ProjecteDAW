@@ -2,7 +2,24 @@
 {% block title %}
 <title>Perfil</title>
 {% endblock %}
-{% block title %}
-<h1>Estàs al teu perfil {{User.Usuari.nom}}</h1>
+{% block content %}
+{% if user.is_authenticated %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'index' %}">Inici</a></li>
+  <li><a href="#">Perfil</a></li>
+  <li class="active">El Meu Compte</li>
+</ol>
+<blockquote>
+  <h2>Hola, {{ user.username }}. Estàs al teu perfil personal.</h2>
+  <h3><small>Gestiona les teves dades personals i les teves comandes!</small></h3>
+</blockquote>
+{% else %}
+<div class="jumbotron">
+  <div class="container">
+    Per accedir a aquesta pàgina, es necessàri tenir un compte de client i estar autenticat.
+    
+  </div>
+</div>
+{% endif %}
 
 {% endblock %}

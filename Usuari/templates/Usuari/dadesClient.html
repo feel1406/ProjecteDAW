@@ -8,15 +8,17 @@
 <blockquote>
   <h2>Crea un perfil de client.</h2>
   <h3><small>I fes les teves comandes des de qualsevol lloc!</small></h3>
+  <p>Insereix les teves dades de contacte.</p>
 </blockquote>
-<form role="form" action="" method="post">{% csrf_token %}
+
+<form role="form" action="/Usuari/perfilClient/" method="post">{% csrf_token %}
   {% for field in form %}
   <div class="form-group">
   	{{ field.errors }}
   	{{ field }}
   </div>
   {% endfor %}
-  <button type="submit" class="btn btn-primary">Continuar</button>
+  <button type="submit" class="btn btn-primary">Crear Client</button>
 </form>
 
 {% endblock content %}
