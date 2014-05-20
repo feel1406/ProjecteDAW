@@ -23,11 +23,6 @@ class DadesUsuari(ModelForm):
                    }
         fields = [ 'adreca', 'telefon']
         
-class EntradaUsuari(ModelForm):
-    class Meta:
-        model = User
-        widgets = {
-                   'username': forms.TextInput(attrs={'placeholder' : 'Nom', 'class' : 'form-control'}),
-                   'password': forms.TextInput(attrs={'placeholder' : 'Contrasenya', 'class' : 'form-control', 'type' : 'password'})
-                   }
-        fields = [ 'username', 'password']
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'placeholder':'Nom d\'Usuari', 'type' : 'text', 'class': 'form-control'}))
+    password = forms.CharField(max_length = 100, widget=forms.TextInput(attrs={'placeholder':'Contrasenya', 'type' : 'password', 'class': 'form-control'}))

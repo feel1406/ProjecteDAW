@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*- 
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from Usuari.forms import NouUsuariForm, DadesUsuari, EntradaUsuari
+from Usuari.forms import NouUsuariForm, DadesUsuari, LoginForm
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
@@ -30,6 +31,7 @@ def NouClient(request):
         
     return render(request, 'Usuari/nouUsuari.html', { 'form' : form })
 
+@login_required
 def DadesClient(request):
     if request.method == 'POST':
         formulariDades = DadesUsuari(request.POST)
@@ -40,7 +42,7 @@ def DadesClient(request):
             usuari.telefon = formulariDades.telefon
             formulariDades.save()
             messages.add_message(request, messages.SUCCESS, 'Dades de contacte desades correctament')
-            url_next = reverse('Usuari/perfilClient.html')
+            url_next = reverse('Usuari/perfilUsuari.html')
             return HttpResponseRedirect(url_next)
         else:
             messages.add_message(request, messages.ERROR, 'Hi ha hagut un error. Intenta-ho una nova vegada')
@@ -48,30 +50,27 @@ def DadesClient(request):
         formulariDades = DadesUsuari()
         
     return render(request, 'Usuari/dadesClient.html', {'formulariDades' : formulariDades})
-    
+
+@login_required    
 def PerfilClient(request):
     return render(request, 'Usuari/perfilUsuari.html')    
-    
+
 def Accedir(request):
     if request.method == 'POST':
-        formulariEntrada = EntradaUsuari(request.POST)
-        if formulariEntrada.is_valid():
-            usr = formulariEntrada.cleaned_data['username']
-            pswd = formulariEntrada.cleaned_data['password']
-            user = authenticate(username = usr, password = pswd)
+        formulariLogin = LoginForm(request.POST)
+        if formulariLogin.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    messages.add_message(request, messages.SUCCESS, 'Benvingut de nou ' + user.username + '.')
-                    url_next = reverse('Usuari/perfilUsuari.html')
-                    return HttpResponseRedirect(url_next)
-            else:
-                messages.add_message(request, messages.ERROR, 'Error en l\'accés. Torna a intentar-ho')
+                    return HttpResponseRedirect('/')
+                messages.add_message(request, messages.ERROR, 'Usuari i/o Contrasenya incorrectes..')
     else:
-        formulariEntrada = EntradaUsuari()
-            
-    return render(request, 'Usuari/accedir.html', {'formulariEntrada' : formulariEntrada})
+        formulariLogin = LoginForm()
+    return render(request, 'Usuari/accedir.html', {'formulariLogin': formulariLogin})
     
 def Sortir(request):
     logout(request)
-    return HttpResponseRedirect('Index')
+    return HttpResponseRedirect('/')

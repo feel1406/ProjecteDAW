@@ -29,11 +29,10 @@
 		<link rel="stylesheet" href="{% static  'css/pnotify.custom.min.css' %}" />
 		<link rel="stylesheet" href="{% static  'css/css.css' %}" />
 	</head>
-
 	<body>
 		<div class="container">
 			<header>
-				<nav class="navbar navbar-default" role="navigation">
+				<nav class="navbar navbar-blue" role="navigation">
 				  <div class="container-fluid">
 				    <!-- Brand and toggle get grouped for better mobile display -->
 				    <div class="navbar-header">
@@ -46,6 +45,25 @@
 				      <a class="navbar-brand" href="{% url 'Index' %}"><span class="glyphicon glyphicon-home"></span> Inici</a>
 				    </div>
 				    {% if user.is_authenticated %}
+				    {% if user.is_staff %}
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li><a href="{% url 'Comanda:comandesClients' %}"><span class="glyphicon glyphicon-shopping-cart"></span> Comandes Dels Clients</a></li>
+				      </ul>
+				      <ul class="nav navbar-nav navbar-right">
+				        <li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{user.username}}<b class="caret"></b></a>
+				          <ul class="dropdown-menu">
+				            <li><a href="{% url 'Comanda:comandesClients' %}"><span class="glyphicon glyphicon-cog"></span> Veure Comandes</a></li>
+				            <li><a href="{% url 'Comanda:entradaProductes' %}"><span class="glyphicon glyphicon-list-alt"></span> Entrada Productes</a></li>
+				            <li class="divider"></li>
+				            <li><a href="{% url 'Usuari:sortir' %}"><span class="glyphicon glyphicon-log-out"></span> Sortir</a></li>
+				          </ul>
+				        </li>
+				      </ul>
+				    </div><!-- /.navbar-collapse -->
+				    {% else %}
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav">
@@ -64,7 +82,7 @@
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">
-				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Usuari<b class="caret"></b></a>
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{user.username}}<b class="caret"></b></a>
 				          <ul class="dropdown-menu">
 				            <li><a href="{% url 'Usuari:perfilClient' %}"><span class="glyphicon glyphicon-cog"></span> El Meu Compte</a></li>
 				            <li><a href="{% url 'Comanda:lesMevesComandes' %}"><span class="glyphicon glyphicon-list-alt"></span> Les Meves Comandes</a></li>
@@ -74,6 +92,7 @@
 				        </li>
 				      </ul>
 				    </div><!-- /.navbar-collapse -->
+				    {% endif %}
 				    {% else %}
 				    <!-- Collect the nav links, forms, and other content for toggling -->
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

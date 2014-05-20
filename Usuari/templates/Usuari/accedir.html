@@ -10,7 +10,7 @@
   <h3><small>Fes noves comandes, gestiona les comandes pendents i modifica les teves dades.</small></h3>
 </blockquote>
 <form role="form" action="" method="post">{% csrf_token %}
-  {% for field in formulariEntrada %}
+  {% for field in formulariLogin %}
   <div class="form-group">
   	{{ field.errors }}
   	{{ field }}

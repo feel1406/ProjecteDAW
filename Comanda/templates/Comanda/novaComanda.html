@@ -4,12 +4,21 @@
 {% endblock %}
 
 {% block content %}
+
+{% if user.is_authenticated %}
+{% if user.is_staff %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'Index' %}">Inici</a></li>
+  <li><a href="#">Comanda</a></li>
+  <li class="active">Comandes Clients</li>
+</ol>
+<h1>Hola {{user.username}}, ets administrador</h1>
+{% else %}
 <ol class="breadcrumb">
   <li><a href="{% url 'Index' %}">Inici</a></li>
   <li><a href="#">Comanda</a></li>
   <li class="active">Fer Comanda</li>
 </ol>
-{% if user.is_authenticated %}
 <div class="espaiTPV">
 	<div class="head"></div>
 	<div class="body"></div>
@@ -34,6 +43,7 @@
 	}
 	setInterval(getData, 1000);
 </script>
+{% endif %}
 {% else %}
 <blockquote>
   <h2>Per fer comandes on-line, és necessàri tenir compte de client.</h2>
