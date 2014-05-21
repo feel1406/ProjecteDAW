@@ -20,8 +20,58 @@
   <li class="active">Fer Comanda</li>
 </ol>
 <div class="espaiTPV">
-	<div class="head"></div>
-	<div class="body"></div>
+	<div class="head">
+		<div class="zonaBotons">
+			<!-- Single button -->
+			<div class="btn-group">
+			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			   Pizzes <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu">
+			    <li><a href="#">Action</a></li>
+			    <li><a href="#">Another action</a></li>
+			    <li><a href="#">Something else here</a></li>
+			    <li><a href="#">Separated link</a></li>
+			  </ul>
+			</div>
+			<!-- Single button -->
+			<div class="btn-group">
+			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			   Tipus De Pizza <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu">
+			    <li><a href="#">Action</a></li>
+			    <li><a href="#">Another action</a></li>
+			    <li><a href="#">Something else here</a></li>
+			    <li><a href="#">Separated link</a></li>
+			  </ul>
+			</div>
+			<!-- Single button -->
+			<div class="btn-group">
+			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			   Ingredients <span class="caret"></span>
+			  </button>
+			  <ul class="dropdown-menu" role="menu">
+			    <li><a href="#">Action</a></li>
+			    <li><a href="#">Another action</a></li>
+			    <li><a href="#">Something else here</a></li>
+			    <li><a href="#">Separated link</a></li>
+			  </ul>
+			</div>
+		</div>
+	</div>
+	<div class="body">
+		<div id="zonaPizza">
+			{% load staticfiles %}
+			<img src="{% static 'img/basePizza.png' %}" class="basePizza" />
+			<img src="{% static 'img/baseFormatge.png' %}" class="basePizza" />
+			<img src="{% static 'img/tomate.png' %}" class="basePizza" />
+			<img src="{% static 'img/pinya.png' %}" class="basePizza"  />
+		</div>
+		<div id="zonaTicket">
+			
+		</div>
+	</div>
 	<div class="foot">
 		<p>
 			<span class="data">

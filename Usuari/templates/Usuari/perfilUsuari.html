@@ -13,11 +13,23 @@
   <h2>Hola, {{ user.username }}. Estàs al teu perfil personal.</h2>
   <h3><small>Gestiona les teves dades personals i les teves comandes!</small></h3>
 </blockquote>
+
+<div class="page-header">
+  <h2>Nom d'Usuari: {{user.username}} <small><a href="{% url 'Usuari:dadesClient' %}">Canviar</a></small></h2>
+</div>
+<div class="page-header">
+  <h2>Correu Electrònic: {{user.email}} <small><a>Canviar</a></small></h2>
+</div>
+<div class="page-header">
+  <h2>Adreça: {{user.usuari.adreca}} <small><a>Canviar</a></small></h2>
+</div>
+<div class="page-header">
+  <h2>Telèfon de Contacte: {{user.usuari.telefon}} <small><a>Canviar</a></small></h2>
+</div>
 {% else %}
 <div class="jumbotron">
   <div class="container">
     Per accedir a aquesta pàgina, es necessàri tenir un compte de client i estar autenticat.
-    
   </div>
 </div>
 {% endif %}

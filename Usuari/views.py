@@ -36,13 +36,11 @@ def DadesClient(request):
     if request.method == 'POST':
         formulariDades = DadesUsuari(request.POST)
         if formulariDades.is_valid():
-            usuari = Usuari()
             formulariDades.save(commit = False)
-            usuari.adreca = formulariDades.adreca
-            usuari.telefon = formulariDades.telefon
-            formulariDades.save()
+            request.User.usuari.adreca = formulariDades.adreca
+            request.User.usuari.telefon = formulariDades.telefon
             messages.add_message(request, messages.SUCCESS, 'Dades de contacte desades correctament')
-            url_next = reverse('Usuari/perfilUsuari.html')
+            url_next = reverse('/')
             return HttpResponseRedirect(url_next)
         else:
             messages.add_message(request, messages.ERROR, 'Hi ha hagut un error. Intenta-ho una nova vegada')
@@ -53,7 +51,8 @@ def DadesClient(request):
 
 @login_required    
 def PerfilClient(request):
-    return render(request, 'Usuari/perfilUsuari.html')    
+    usuari = Usuari()
+    return render(request, 'Usuari/perfilUsuari.html', {'usuari' : usuari})    
 
 def Accedir(request):
     if request.method == 'POST':

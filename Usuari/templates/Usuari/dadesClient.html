@@ -8,7 +8,7 @@
 <blockquote>
   <h2>Crea un perfil de client.</h2>
   <h3><small>I fes les teves comandes des de qualsevol lloc!</small></h3>
-  <p>Insereix les teves dades de contacte.</p>
+  <p>Insereix o modifica les teves dades de contacte.</p>
 </blockquote>
 
 <form role="form" action="/Usuari/perfilClient/" method="post">{% csrf_token %}
@@ -21,7 +21,7 @@
   	</div>
   </div>
   {% endfor %}
-  <button type="submit" class="btn btn-primary">Crear Client</button>
+  <button type="submit" class="btn btn-primary">Modificar Dades</button>
 </form>
 
 {% endblock content %}

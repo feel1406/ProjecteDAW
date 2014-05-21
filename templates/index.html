@@ -59,7 +59,10 @@
   	<li>Enviament a domicili gratuït</li>
   	<li>Descomptes i ofertes</li>
   </ul>
-  <p><a href="{% url 'Usuari:nouClient' %}" class="btn btn-primary btn-lg" role="button">Crear Compte</a></p>
+  <div class="botonsInici">
+  	<a href="{% url 'Usuari:accedir' %}" class="btn btn-primary btn-lg" role="button">Accedeix</a>
+  	<a href="{% url 'Usuari:nouClient' %}" class="btn btn-primary btn-lg" role="button">Registra't</a>
+  </div>
 </div>
 {% endif %}
 {% endblock %}
