@@ -10,7 +10,168 @@
   <li class="active">Entrada Stock</li>
 </ol>
 {% if user.is_staff %}
-<h1>Aqui pots afegir stock als productes</h1>
+<blockquote>
+  <h2>Hola, {{ user.username }}.</h2>
+  <h3><small>Gestió Pizzeria</small></h3>
+</blockquote>
+<div class="list-group col-md-4">
+  <a href="#" class="list-group-item pizzes ">Pizzes</a>
+  <a href="#" class="list-group-item ingredients">Ingredients</a>
+  <a href="#" class="list-group-item afegir_pizza">Afegir Pizzes</a>
+  <a href="#" class="list-group-item afegir_ingredients">Afegir Ingredients</a>
+</div>
+<div class="col-md-8 llistatPizzes">
+	<div class="panel panel-primary">
+  	<!-- Default panel contents -->
+  		<div class="panel-heading">Pizzes</div>
+  		<div class="panel-body ">
+    		<p>Llistat de les pizzes actuals que oferim als nostres menús:</p>
+  		</div>
+  		<!-- Table -->
+		 	<table class="table table-hover table-condensed table-responsive">
+    			<tr>
+    				<td>Pizza</td>
+    				<td>PVP</td>
+    			</tr>
+    			{% for p in pizza %}
+    			<tr class="info">
+    				<td>{{ p.nom_pizza }}</td>
+    				<td>{{ p.preu_base}}€ (<a>Modificar Preu</a>)</td>
+    			</tr>
+    			{% endfor %}
+  			</table>
+	</div>
+</div>
+<div class="col-md-8 llistatIngredients">
+	<div class="panel panel-primary">
+  	<!-- Default panel contents -->
+  		<div class="panel-heading">Ingredients</div>
+  		<div class="panel-body ">
+    		<p>Llistat dels ingredients disponibles per les pizzes a mida:</p>
+  		</div>
+  		<!-- Table -->
+		 	<table class="table table-hover table-condensed table-responsive">
+    			<tr>
+    				<td>Ingredient</td>
+    				<td>PVP Extra</td>
+    				<td>Stock Actual</td>
+    			</tr>
+    			{% for i in ingredients %}
+    			{% if i.stock > 5 %}
+    			<tr class="info">
+    				<td>{{ i.nom_ingredient }}</td>
+    				<td>{{ i.preu_ingredient }}€ (<a>Modificar Preu</a>)</td>
+    				<td>{{ i.stock }} unitats (<a>Modificar Stock</a>)</td>
+    			</tr>
+    			{% else %}
+    			<tr class="danger">
+    				<td>{{ i.nom_ingredient }}</td>
+    				<td>{{ i.preu_ingredient }}€ (<a>Modificar Preu</a>)</td>
+    				<td>{{ i.stock }} unitats (<a>Modificar Stock</a>)</td>
+    			</tr>
+    			{% endif %}
+    			{% endfor %}
+  			</table>
+	</div>
+</div>
+<div class="col-md-8 afegirPizza">
+	<div class="panel panel-primary">
+  		<div class="panel-heading">
+	  		Afegir Noves Pizzes al Menú
+  		</div>
+  		<div class="panel-body">
+    		Pizzes
+  		</div>
+	</div>
+</div>
+<div class="col-md-8 afegirIngredient">
+	<div class="panel panel-primary">
+  		<div class="panel-heading">
+	  		Afegir Nous Ingredients
+  		</div>
+  		<div class="panel-body">
+    		
+  		</div>
+	</div>
+</div>
+<script>
+    var flag_pizzes = false;
+    var flag_ingredients = false;
+    var flag_afPizzes = false;
+    var flag_afIngredients = false;
+	$(".pizzes").click(function(){
+		if (flag_pizzes) {
+			$(".llistatPizzes").fadeOut("slow");
+			flag_pizzes = false;
+		} else {
+			$(".llistatIngredients").fadeOut("slow", function() {
+				$(".afegirPizza").fadeOut("slow", function(){
+					$(".afegirIngredient").fadeOut("slow", function(){
+						$(".llistatPizzes").fadeIn("slow");
+					});
+				});	
+			});			
+			flag_ingredients = false;
+			flag_afPizzes = false;
+			flag_afIngredients = false;
+			flag_pizzes = true;
+		}
+	});
+	$(".ingredients").click(function(){
+		if (flag_ingredients) {
+			$(".llistatIngredients").fadeOut("slow");
+			flag_ingredients = false;
+		} else {
+			$(".llistatPizzes").fadeOut("slow", function() {
+				$(".afegirPizza").fadeOut("slow", function(){
+					$(".afegirIngredient").fadeOut("slow", function(){
+						$(".llistatIngredients").fadeIn("slow");
+					});
+				});
+			});
+			flag_pizzes = false;
+			flag_afPizzes = false;
+			flag_afIngredients = false;
+			flag_ingredients = true;
+		}
+	});
+	$(".afegir_pizza").click(function(){
+		if (flag_afPizzes) {
+			$(".afegirPizza").fadeOut("slow");
+			flag_afPizzes = false;
+		} else {
+			$(".llistatIngredients").fadeOut("slow", function() {
+				$(".llistatPizzes").fadeOut("slow", function(){
+					$(".afegirIngredient").fadeOut("slow", function(){
+						$(".afegirPizza").fadeIn("slow");
+					});
+				});
+			});			
+			flag_ingredients = false;
+			flag_pizzes = false;
+			flag_afIngredients = false;
+			flag_afPizzes = true;
+		}
+	});
+	$(".afegir_ingredients").click(function(){
+		if (flag_afIngredients) {
+			$(".afegirIngredient").fadeOut("slow");
+			flag_afIngredients = false;
+		} else {
+			$(".llistatIngredients").fadeOut("slow", function() {
+				$(".llistatPizzes").fadeOut("slow", function(){
+					$(".afegirPizza").fadeOut("slow", function(){
+						$(".afegirIngredient").fadeIn("slow");
+					});
+				});
+			});			
+			flag_ingredients = false;
+			flag_pizzes = false;
+			flag_afPizzes = false;
+			flag_afIngredients = true;
+		}
+	});
+</script>
 {% else %}
 <h1>no tens acces a aquesta pagina</h1>
 <a href="{% url 'Index' %}">Anar a Inici</a>

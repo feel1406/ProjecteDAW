@@ -22,10 +22,10 @@ def NouClient(request):
             user = authenticate(username = user, password = passwd)
             if user is not None:
                 login(request, user)
-            messages.add_message(request, messages.SUCCESS, 'Has creat el teu usuari correctament')
+            messages.add_message(request, messages.INFO, 'Has creat el teu usuari correctament')
             return render(request, 'Usuari/perfilUsuari.html')
         else:
-            messages.add_message(request, messages.ERROR, 'Error creant l\'usuari')
+            messages.add_message(request, messages.WARNING, 'Error creant l\'usuari')
     else:
         form = NouUsuariForm()
         
@@ -64,12 +64,14 @@ def Accedir(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    messages.add_message(request, messages.INFO, "Benvingut, " + user.username + "." )
                     return HttpResponseRedirect('/')
-                messages.add_message(request, messages.ERROR, 'Usuari i/o Contrasenya incorrectes..')
+                messages.add_message(request, messages.WARNING, 'Usuari i/o Contrasenya incorrectes..')
     else:
         formulariLogin = LoginForm()
     return render(request, 'Usuari/accedir.html', {'formulariLogin': formulariLogin})
     
 def Sortir(request):
     logout(request)
+    messages.add_message(request, messages.INFO, "Fins Aviat.")
     return HttpResponseRedirect('/')

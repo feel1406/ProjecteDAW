@@ -16,7 +16,7 @@
 		<script src="{% static 'javascript/jquery-1.11.1.min.js' %}"></script>
 		<script src="{% static 'javascript/javascript.js' %}"></script>
 		<!-- Script de PNotify -->
-		<script src="{% static 'javascript/pnotify.custom.min.js' %}"></script>
+		<script src="{% static 'javascript/jquery.pnotify.min.js' %}"></script>
 		<!-- Favicon de la plana web -->
 		<link rel="shortcut icon" href="{% static 'img/logo-pizza.png' %}">
 		<link rel="apple-touch-icon" href="{% static 'img/logo-pizza.png' %}">
@@ -26,7 +26,8 @@
 		<link rel="stylesheet" href="{% static  'bootstrap/css/bootstrap-theme.min.css' %}" />
 		<link rel="stylesheet" href="{% static  'bootstrap/css/bootstrap-theme.css' %}" />
 		<!-- Link a fitxer CSS de PNotify -->
-		<link rel="stylesheet" href="{% static  'css/pnotify.custom.min.css' %}" />
+		<link rel="stylesheet" href="{% static  'css/jquery.pnotify.default.css' %}" />
+		<link rel="stylesheet" href="{% static  'css/jquery.pnotify.default.icons.css' %}" />
 		<link rel="stylesheet" href="{% static  'css/css.css' %}" />
 	</head>
 	<body>
@@ -50,6 +51,7 @@
 				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				      <ul class="nav navbar-nav">
 				        <li><a href="{% url 'Comanda:comandesClients' %}"><span class="glyphicon glyphicon-shopping-cart"></span> Comandes Dels Clients</a></li>
+				        <li><a href="{% url 'Comanda:entradaProductes' %}"><span class="glyphicon glyphicon-wrench"></span> Gestió Pizzeria</a></li>
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
 				        <li class="dropdown">

@@ -138,6 +138,9 @@
 }
 
 .botonsInici{
-	text-align: center;
-	
+	text-align: center;	
+}
+
+.llistatPizzes, .llistatIngredients, .afegirIngredient, .afegirPizza{
+	display: none;
 }

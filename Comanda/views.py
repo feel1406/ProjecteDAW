@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from Comanda.models import TipusPizza, Ingredient
 
 def NovaComanda(request):
     return render(request, 'Comanda/novaComanda.html')
@@ -10,4 +11,6 @@ def ComandesClients(request):
     return render(request, 'Comanda/comandesClients.html')
 
 def EntrarProducte(request):
-    return render(request, 'Comanda/entrarProducte.html')
+    pizza = TipusPizza.objects.all()
+    ingredients = Ingredient.objects.all()
+    return render(request, 'Comanda/entrarProducte.html', {'pizza' : pizza, 'ingredients' : ingredients})
