@@ -29,10 +29,9 @@
 			   Pizzes <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="#">Action</a></li>
-			    <li><a href="#">Another action</a></li>
-			    <li><a href="#">Something else here</a></li>
-			    <li><a href="#">Separated link</a></li>
+			  	{% for pizza in pizzes %}
+			    <li><a href="#">{{ pizza.nom_pizza }}</a></li>
+			    {% endfor %}
 			  </ul>
 			</div>
 			<!-- Single button -->
@@ -41,10 +40,9 @@
 			   Tipus De Pizza <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="#">Action</a></li>
-			    <li><a href="#">Another action</a></li>
-			    <li><a href="#">Something else here</a></li>
-			    <li><a href="#">Separated link</a></li>
+			    {% for tipus in tipus %}
+			    <li><a href="#">{{ tipus.tipus_pizza }}</a></li>
+			    {% endfor %}
 			  </ul>
 			</div>
 			<!-- Single button -->
@@ -93,6 +91,11 @@
 		document.getElementById("hora").innerHTML = '<span class="glyphicon glyphicon-time"></span> ' + hora;
 	}
 	setInterval(getData, 1000);
+</script>
+<script>
+	$.ajax({
+		url : 'http://localhost:8000/Comanda/novaComanda/'
+	});
 </script>
 {% endif %}
 {% else %}

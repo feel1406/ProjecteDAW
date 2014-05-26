@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Nou Client</title>
+<title>Dades Client</title>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
   {% for field in formulariDades %}
   <div class="form-group">
   	<div class="input-group">
-  		<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+  		<span class="input-group-addon"><span class="glyphicon glyphicon-wrench"></span></span>
   		{{ field.errors }}
   		{{ field }}
   	</div>
@@ -23,5 +23,4 @@
   {% endfor %}
   <button type="submit" class="btn btn-primary">Modificar Dades</button>
 </form>
-
 {% endblock content %}

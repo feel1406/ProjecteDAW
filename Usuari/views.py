@@ -18,11 +18,12 @@ def NouClient(request):
             passwd = form.cleaned_data['password']
             email = form.cleaned_data['email']
             usuari = User.objects.create_user(user, email, passwd)
-            usuari.save()
+            usuari.save()             
             user = authenticate(username = user, password = passwd)
             if user is not None:
                 login(request, user)
             messages.add_message(request, messages.INFO, 'Has creat el teu usuari correctament')
+            messages.add_message(request, messages.INFO, 'ALERTA!!: Has d\'introduïr les teves dades de contacte.')
             return render(request, 'Usuari/perfilUsuari.html')
         else:
             messages.add_message(request, messages.WARNING, 'Error creant l\'usuari')
@@ -33,19 +34,20 @@ def NouClient(request):
 
 @login_required
 def DadesClient(request):
+    usuari = request.user.usuari
     if request.method == 'POST':
-        formulariDades = DadesUsuari(request.POST)
+        formulariDades = DadesUsuari(request.POST, instance = usuari)
         if formulariDades.is_valid():
-            formulariDades.save(commit = False)
-            request.User.usuari.adreca = formulariDades.adreca
-            request.User.usuari.telefon = formulariDades.telefon
+            fd = formulariDades.save(commit = False)
+            fd.usuari = request.user
+            fd.save()
             messages.add_message(request, messages.SUCCESS, 'Dades de contacte desades correctament')
-            url_next = reverse('/')
+            url_next = reverse('Usuari:perfilUsuari')
             return HttpResponseRedirect(url_next)
         else:
-            messages.add_message(request, messages.ERROR, 'Hi ha hagut un error. Intenta-ho una nova vegada')
+            messages.add_message(request, messages.INFO, 'Hi ha hagut un error. Intenta-ho una nova vegada')
     else:
-        formulariDades = DadesUsuari()
+        formulariDades = DadesUsuari(instance = usuari)
         
     return render(request, 'Usuari/dadesClient.html', {'formulariDades' : formulariDades})
 
@@ -66,7 +68,8 @@ def Accedir(request):
                     login(request, user)
                     messages.add_message(request, messages.INFO, "Benvingut, " + user.username + "." )
                     return HttpResponseRedirect('/')
-                messages.add_message(request, messages.WARNING, 'Usuari i/o Contrasenya incorrectes..')
+            else:
+                messages.add_message(request, messages.SUCCESS, 'Usuari i/o Contrasenya incorrectes.')
     else:
         formulariLogin = LoginForm()
     return render(request, 'Usuari/accedir.html', {'formulariLogin': formulariLogin})

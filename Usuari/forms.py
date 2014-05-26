@@ -18,8 +18,8 @@ class DadesUsuari(ModelForm):
     class Meta:
         model = Usuari
         widgets = {
-                   'adreca': forms.TextInput(attrs={'placeholder' : 'Adreça', 'class' : 'form-control'}),
-                   'telefon': forms.TextInput(attrs={'placeholder' : 'Telèfon', 'class' : 'form-control'}),
+                   'adreca': forms.TextInput(attrs={'placeholder' : 'Adreça', 'class' : 'form-control', 'id' : 'adreca'}),
+                   'telefon': forms.TextInput(attrs={'placeholder' : 'Telèfon', 'class' : 'form-control', 'id' : 'telefon'}),
                    }
         fields = [ 'adreca', 'telefon']
         

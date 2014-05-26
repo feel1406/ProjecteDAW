@@ -80,7 +80,18 @@
 	  		Afegir Noves Pizzes al Menú
   		</div>
   		<div class="panel-body">
-    		Pizzes
+    		<form role="form" action="/Comanda/entradaProductes/" method="post">{% csrf_token %}
+			  {% for field in formulariNovaPizza %}
+			  <div class="form-group">
+			  	<div class="input-group">
+			  		<span class="input-group-addon"></span>
+			  		{{ field.errors }}
+			  		{{ field }}
+			  	</div>
+			  </div>
+			  {% endfor %}
+			  <button type="submit" class="btn btn-primary">Afegir Pizza</button>
+			</form>
   		</div>
 	</div>
 </div>

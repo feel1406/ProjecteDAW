@@ -17,7 +17,7 @@ class Ingredient(models.Model):
     def __unicode__(self):
         return self.nom_ingredient
     
-class TipusPizza(models.Model):
+class Varietat(models.Model):
     nom_pizza = models.TextField(max_length = 100, blank = False)
     preu_base = models.IntegerField(blank = False)
     es_predefinida = models.BooleanField(blank = False)
@@ -25,6 +25,22 @@ class TipusPizza(models.Model):
     
     def __unicode__(self):
         return self.nom_pizza
+
+class TipusPizza(models.Model):
+    PIZZA_CHOICES = (
+                     ('Calzone', 'CA'),
+                     ('Normal', 'NO'),
+                     ('Massa Fina', 'MF'),
+                     ('Focaccia', 'FO'),
+                     ('Panini', 'PA'),
+                     ('Massa De Pa', 'MP'),
+    )     
+    tipus_pizza = models.TextField(max_length = 50, choices = PIZZA_CHOICES )
+    preu_tipus = models.IntegerField(max_length = 20)
+    
+class VarietatPizzes(models.Model):
+    varietat_pizza = models.ManyToManyField(Varietat)
+    tipus = models.ManyToManyField(TipusPizza)
     
 class IngredientEnPizza(models.Model):
     id_tipus_pizza = models.ForeignKey(TipusPizza)
