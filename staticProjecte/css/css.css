@@ -121,6 +121,11 @@
 	display: none;
 }
 
+.jumbotron {
+	padding-top: 1px;
+	padding-bottom: 20px;
+}
+
 .zonaBotons{
 	margin-left: 5px;
 	padding: 5px;
@@ -143,4 +148,16 @@
 
 .llistatPizzes, .llistatIngredients, .afegirIngredient, .afegirPizza{
 	display: none;
+}
+
+div:hover.efecte img.imatge{
+	display:none;
+}
+
+div.efecte img.hover{
+	display:none;
+}
+
+div:hover.efecte img.hover{
+	display:block;
 }

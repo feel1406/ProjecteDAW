@@ -51,10 +51,9 @@
 			   Ingredients <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
-			    <li><a href="#">Action</a></li>
-			    <li><a href="#">Another action</a></li>
-			    <li><a href="#">Something else here</a></li>
-			    <li><a href="#">Separated link</a></li>
+			    {% for ingredient in ingredients %}
+			    <li><a href="#">{{ ingredient.nom_ingredient }}</a></li>
+			    {% endfor %}
 			  </ul>
 			</div>
 		</div>
@@ -91,11 +90,6 @@
 		document.getElementById("hora").innerHTML = '<span class="glyphicon glyphicon-time"></span> ' + hora;
 	}
 	setInterval(getData, 1000);
-</script>
-<script>
-	$.ajax({
-		url : 'http://localhost:8000/Comanda/novaComanda/'
-	});
 </script>
 {% endif %}
 {% else %}
@@ -157,20 +151,24 @@
 <hr>
 <div class="row">
   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="Aplicació Web ràpida per a qualsevol usuari">
+    <div class="thumbnail efecte">
+      <img class="imatge" src="{% static 'img/crearClient.png' %}" width="90%" height="90%" alt="Aplicació Web ràpida per a qualsevol usuari">
+      <img class="imatge hover" src="{% static 'img/ferComanda.png' %}" width="90%" height="90%" alt="Aplicació Web ràpida per a qualsevol usuari">
       <div class="caption">
         <h3>Ràpid</h3>
-        <p>Amb la nostra aplicació web, podràs fer comandes ràpidament des de qualsevol dispositiu. Des de casa o al carrer. Des del teu PC o el smartphone.</p>
+        <p>Amb la nostra aplicació web, podràs fer comandes ràpidament.
+        	Només cal crear un usuari, i llest!. En dos pasos, ja pots demanar la teva pizza!</p>
       </div>
     </div>
   </div>
   <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="Intuitiva. Fes la teva comanda a mida">
+    <div class="thumbnail efecte">
+      <img class="imatge" src="{% static 'img/usTPV.png' %}" width="90%" height="90%" alt="Crea la teva comanda de forma intuitiva!,">
+      <img class="imatge hover" src="{% static 'img/tipusPizza.png' %}" width="90%" height="90%" alt="Tria una pizza o fes la teva al gust.">
       <div class="caption">
-        <h3>Intuiitiu</h3>
-        <p>Selecciona el producte que vols demanar, i fes a mida el teu menú. Afegeix els productes que vulguis.</p>
+        <h3>Intuitiu</h3>
+        <p>Demana una de les nostres pizzes, o fes la teva pròpia. Tria el tipus de pizza
+        	que més t'agradi, i afegeix els teus ingredients preferits! No hi ha límit!.</p>
       </div>
     </div>
   </div>

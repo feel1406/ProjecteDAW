@@ -7,7 +7,7 @@
 <ol class="breadcrumb">
   <li><a href="{% url 'Index' %}">Inici</a></li>
   <li><a href="#">Productes</a></li>
-  <li class="active">Entrada Stock</li>
+  <li class="active">Gestió Productes</li>
 </ol>
 {% if user.is_staff %}
 <blockquote>
@@ -82,13 +82,10 @@
   		<div class="panel-body">
     		<form role="form" action="/Comanda/entradaProductes/" method="post">{% csrf_token %}
 			  {% for field in formulariNovaPizza %}
-			  <div class="form-group">
-			  	<div class="input-group">
-			  		<span class="input-group-addon"></span>
-			  		{{ field.errors }}
+				<div class="form-group">
+    				{{ field.errors }}
 			  		{{ field }}
-			  	</div>
-			  </div>
+  				</div>
 			  {% endfor %}
 			  <button type="submit" class="btn btn-primary">Afegir Pizza</button>
 			</form>
@@ -101,7 +98,15 @@
 	  		Afegir Nous Ingredients
   		</div>
   		<div class="panel-body">
-    		
+    		<form role="form" action="/Comanda/entradaProductes/" method="post">{% csrf_token %}
+			  {% for field in formulariNouIngredient %}
+				<div class="form-group">
+    				{{ field.errors }}
+			  		{{ field }}
+  				</div>
+			  {% endfor %}
+			  <button type="submit" class="btn btn-primary">Afegir Ingredient</button>
+			</form>
   		</div>
 	</div>
 </div>
@@ -182,6 +187,7 @@
 			flag_afIngredients = true;
 		}
 	});
+	$("#id_es_predefinida").after(" <label> Pizza predefinida? (No permet afegir-ne ingredients)</label>");
 </script>
 {% else %}
 <h1>no tens acces a aquesta pagina</h1>

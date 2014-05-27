@@ -48,9 +48,14 @@
 <br>
 {% if user.is_authenticated %}
 <div class="jumbotron">
-  <h1>Fes la teva comanda ara mateix!</h1>
+{% if user.is_staff %}
+<h2>Gestionar Comandes</h2>
+  <p><a href="{% url 'Comanda:comandesClients' %}" class="btn btn-primary btn-lg" role="button">Gestió</a></p>
+{% else %}
+  <h2>Fes la teva comanda ara mateix!</h2>
   <p><a href="{% url 'Comanda:novaComanda' %}" class="btn btn-primary btn-lg" role="button">Fer Comanda</a></p>
 </div>
+{% endif %}
 {% else %}
 <div class="jumbotron">
   <h3>Accedeix, o crea't un nou compte de client i disfruta dels avantatges on-line!</h3>

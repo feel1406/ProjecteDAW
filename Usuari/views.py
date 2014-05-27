@@ -26,7 +26,7 @@ def NouClient(request):
             messages.add_message(request, messages.INFO, 'ALERTA!!: Has d\'introduïr les teves dades de contacte.')
             return render(request, 'Usuari/perfilUsuari.html')
         else:
-            messages.add_message(request, messages.WARNING, 'Error creant l\'usuari')
+            messages.add_message(request, messages.INFO, 'Error creant l\'usuari. Aquest nom d\'usuari ja existeix')
     else:
         form = NouUsuariForm()
         
