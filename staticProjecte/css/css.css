@@ -188,3 +188,29 @@ div:hover.efecte img.hover{
 	overflow-y: scroll;
 	height: 350px;
 }
+
+#ticket{
+	background-color: #FFFFFF;
+	width: 85%;
+	height: 80%;
+	margin: auto;
+}
+
+#detallTicket{
+	position: absolute;
+	margin-top: 87px;
+	width: 30%;
+}
+
+.logoTicket{
+	position: absolute;
+	width: 9%;
+	display: inline-block;
+}
+
+.dadesEmpresaTicket{
+	display: inline-block;
+	position: absolute;
+	font-size: small;
+	margin-left: 110px;
+}

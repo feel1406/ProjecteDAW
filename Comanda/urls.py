@@ -10,5 +10,7 @@ urlpatterns = patterns('',
     url(r'^comandesClients/', views.ComandesClients, name='comandesClients'),
     
     url(r'^entradaProductes/', views.EntrarProducte, name='entradaProductes'),
+    
+    url(r'^consultaPizza/', views.ConsultaPizza, name='consultaPizza')
 
 )

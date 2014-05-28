@@ -61,9 +61,35 @@
 	<div class="body">
 		<div id="zonaPizza">
 			{% load staticfiles %}
+			
 		</div>
 		<div id="zonaTicket">
-			
+			<div id="ticket">
+				<div id="infoEmpresaTicket">
+					<img src="{% static 'img/logo-pizza.png' %}" alt="Logo Empresarial Per Al Ticket" class="logoTicket" />
+					<p class="dadesEmpresaTicket">
+						CendraPizza SL.<br>
+						C/ Pelai Martínez 2<br>
+						Figueres, 17600 (Girona)<br>
+						972<br>
+						administracio@cendrapizza.cat
+					</p>
+				</div>
+				<div id="detallTicket">
+					<div class="table-responsive">
+					  <table class="table">
+					    <tr>
+					    	<td>Quantitat</td>
+					    	<td>Pizza</td>
+					    	<td>Preu</td>
+					    </tr>
+					    <tr>
+					    	
+					    </tr>
+					  </table>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="foot">
@@ -86,18 +112,37 @@
 		document.getElementById("hora").innerHTML = '<span class="glyphicon glyphicon-time"></span> ' + hora;
 	}
 	setInterval(getData, 1000);
-	var baseP = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza"  + ">";
+	var baseP = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza"  + " alt=" + "Pizza Seleccionada" + ">";
 	$("#pizzes li a").click(function(e){
 		var varietatPizza =  $(e.target).text();
 		if(varietatPizza != "Al Gust"){
 			$("#botoIng").addClass("disabled");
 			$("#zonaPizza").html(null);
+			var pizza = 'nom_pizza=' + varietatPizza;
+			var fitxer;
+			$.ajax({
+				url: '/Comanda/consultaPizza',
+				data: pizza,
+				type: 'GET',
+				dataType: 'json',
+				success: function( data, textStatus, jqXHR) {
+					fitxer = data.nomFitxer;
+					var inici = "<img src='{% static 'img/";
+					inici = inici.concat(fitxer);
+					inici = inici.concat("' %}' class='basePizza' alt='Pizza Seleccionada' />");
+					console.log(inici);
+					var baseP = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' />";
+					$("#zonaPizza").append(baseP);
+				},
+				error: function( jqXHR, textStatus, errorThrown ) {
+					alert(errorThrown);
+				}
+			});
 		} else {
 			$("#botoIng").removeClass("disabled");
 			$("#zonaPizza").html(null);
 			$("#zonaPizza").append(baseP);
 		}
-		
 	});
 </script>
 {% endif %}

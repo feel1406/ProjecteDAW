@@ -1,16 +1,30 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from Comanda.models import TipusPizza, Ingredient, Varietat
+from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, VarietatPizzes, IngredientEnPizza, DadesComanda
 from Comanda.forms import AfegirPizza, AfegirIngredient
 from django.contrib import messages
+import json
+import datetime
+
 
 def NovaComanda(request):
+    data = datetime.datetime.now()
     pizzes = Varietat.objects.all()
     tipus = TipusPizza.objects.all()
     ingredients = Ingredient.objects.all()
+    c = Comanda()
+    c.comanda_pagada = False
+    c.data_comanda = data
     return render(request, 'Comanda/novaComanda.html', {'pizzes' : pizzes, 'tipus' : tipus, 'ingredients' : ingredients})
+
+def ConsultaPizza(request):
+    pizza = request.GET.get('nom_pizza')
+    varietat = Varietat.objects.get(nom_pizza = pizza)
+    respostaAjax = dict()
+    respostaAjax['nomFitxer'] = varietat.imatge_pizza_ext
+    return HttpResponse(json.dumps(respostaAjax), content_type = 'application/json')
 
 def LesMevesComandes(request):
     return render(request, 'Comanda/lesMevesComandes.html')
