@@ -28,7 +28,7 @@
 			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			   Pizzes <span class="caret"></span>
 			  </button>
-			  <ul class="dropdown-menu" role="menu">
+			  <ul class="dropdown-menu" id="pizzes" role="menu">
 			  	{% for pizza in pizzes %}
 			    <li><a href="#">{{ pizza.nom_pizza }}</a></li>
 			    {% endfor %}
@@ -47,7 +47,7 @@
 			</div>
 			<!-- Single button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			  <button type="button" class="btn btn-primary dropdown-toggle" id="botoIng" data-toggle="dropdown">
 			   Ingredients <span class="caret"></span>
 			  </button>
 			  <ul class="dropdown-menu" role="menu">
@@ -61,10 +61,6 @@
 	<div class="body">
 		<div id="zonaPizza">
 			{% load staticfiles %}
-			<img src="{% static 'img/basePizza.png' %}" class="basePizza" />
-			<img src="{% static 'img/baseFormatge.png' %}" class="basePizza" />
-			<img src="{% static 'img/tomate.png' %}" class="basePizza" />
-			<img src="{% static 'img/pinya.png' %}" class="basePizza"  />
 		</div>
 		<div id="zonaTicket">
 			
@@ -90,6 +86,19 @@
 		document.getElementById("hora").innerHTML = '<span class="glyphicon glyphicon-time"></span> ' + hora;
 	}
 	setInterval(getData, 1000);
+	var baseP = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza"  + ">";
+	$("#pizzes li a").click(function(e){
+		var varietatPizza =  $(e.target).text();
+		if(varietatPizza != "Al Gust"){
+			$("#botoIng").addClass("disabled");
+			$("#zonaPizza").html(null);
+		} else {
+			$("#botoIng").removeClass("disabled");
+			$("#zonaPizza").html(null);
+			$("#zonaPizza").append(baseP);
+		}
+		
+	});
 </script>
 {% endif %}
 {% else %}
@@ -152,8 +161,8 @@
 <div class="row">
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail efecte">
-      <img class="imatge" src="{% static 'img/crearClient.png' %}" width="90%" height="90%" alt="Aplicació Web ràpida per a qualsevol usuari">
-      <img class="imatge hover" src="{% static 'img/ferComanda.png' %}" width="90%" height="90%" alt="Aplicació Web ràpida per a qualsevol usuari">
+      <img class="imatge" src="{% static 'img/crearClient.png' %}" alt="Aplicació Web ràpida per a qualsevol usuari">
+      <img class="imatge hover" src="{% static 'img/ferComanda.png' %}" alt="Aplicació Web ràpida per a qualsevol usuari">
       <div class="caption">
         <h3>Ràpid</h3>
         <p>Amb la nostra aplicació web, podràs fer comandes ràpidament.
@@ -163,8 +172,8 @@
   </div>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail efecte">
-      <img class="imatge" src="{% static 'img/usTPV.png' %}" width="90%" height="90%" alt="Crea la teva comanda de forma intuitiva!,">
-      <img class="imatge hover" src="{% static 'img/tipusPizza.png' %}" width="90%" height="90%" alt="Tria una pizza o fes la teva al gust.">
+      <img class="imatge" src="{% static 'img/usTPV.png' %}" alt="Crea la teva comanda de forma intuitiva!,">
+      <img class="imatge hover m" src="{% static 'img/tipusPizza.png' %}" alt="Tria una pizza o fes la teva al gust.">
       <div class="caption">
         <h3>Intuitiu</h3>
         <p>Demana una de les nostres pizzes, o fes la teva pròpia. Tria el tipus de pizza

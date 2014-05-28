@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block content %}
+{% load staticfiles %}
 <ol class="breadcrumb">
   <li><a href="{% url 'Index' %}">Inici</a></li>
   <li><a href="#">Sobre Nosaltres</a></li>
@@ -13,4 +14,20 @@
   <h2>Qui Som?</h2>
   <h3><small>CendraPizza. Pizzes artesanals des de 2004.</small></h3>
 </blockquote>
+<div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+    			<h2>CendraPizza: Experiència i qualitat</h2>
+    			<p>A CendraPizza tenim més de deu anys d'experiència en la elaboració i preparació
+    			de pizzes casolanes i artesanals. Preparem cada dia totes les nostres salses i masses.
+    			Utilitzem productes de l'Empordà per a que tinguis la confiança de menjar
+    			aliments sans i naturals.</p>
+    			<hr>
+    			<img src="{% static 'img/pizzaArtesanal.png' %}" alt="Pizza casolana amb formatge i ceba." class="img-thumbnail pizzaArtesanal">
+    			<img src="{% static 'img/pizzaFormatges.png' %}" alt="Pizza de Formatges fossos." class="img-thumbnail pizzaFormatge"><hr>
+    			Treballem cada dia per crear nous sabors i portarte'ls a casa. Gaudeix d'un gust natural com fet a casa.
+    			Som de la terra, treballem per a tu, i desitjem que gaudeixis amb les nostres creacions.
+  		</div>
+	</div>	
+</div>
 {% endblock %}

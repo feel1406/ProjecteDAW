@@ -63,7 +63,7 @@
 }
 
 .body{
-	height: 620px;
+	height: 540px;
 }
 
 .head, .body{
@@ -72,17 +72,31 @@
 
 #zonaPizza{
 	display: inline-block;
-	border-right: solid 1px #97bbb9;
 	height: 620px;
 	width: 66%;
 }
 
 #zonaTicket{
 	display: inline-block;
+	border-left: solid 1px #97bbb9;
 	height: 620px;
 	width: 34%;
-	margin-left: -5px;
+	margin-left: -4px;
 	background-color: rgba(0, 64, 116, 0.1);
+}
+
+.pizzaArtesanal{
+	width: 20%;
+	margin-left: 15%;
+}
+
+.pizzaFormatge{
+	width: 14%;
+	margin-left: 30%;
+}
+
+.informacio{
+	border: solid 1px #97bbb9;
 }
 
 .pie{
@@ -94,7 +108,7 @@
 
 .foot{
 	position:absolute;
-	bottom: 40px;
+	bottom: 30px;
 	margin-left: 5px;
 }
 
@@ -113,7 +127,7 @@
 
 .espaiTPV{
 	width: 100%;
-	min-height: 720px;
+	min-height: 640px;
 	background-color: rgba(0, 0, 255, 0.1);
 }
 
@@ -139,11 +153,19 @@
 .basePizza{
 	position: absolute;
 	margin-left: 100px;
-	margin-top: 50px;
+	margin-top: 25px;
 }
 
 .botonsInici{
 	text-align: center;	
+}
+
+.imatge{
+	width: 90%;
+}
+
+.m{
+	width: 89%;
 }
 
 .llistatPizzes, .llistatIngredients, .afegirIngredient, .afegirPizza{
@@ -160,4 +182,9 @@ div.efecte img.hover{
 
 div:hover.efecte img.hover{
 	display:block;
+}
+
+.taulaIngredients, .taulaPizzes{
+	overflow-y: scroll;
+	height: 350px;
 }
