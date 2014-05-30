@@ -63,7 +63,7 @@
 }
 
 .body{
-	height: 540px;
+	height: 600px;
 }
 
 .head, .body{
@@ -72,14 +72,14 @@
 
 #zonaPizza{
 	display: inline-block;
-	height: 620px;
+	height: 100%;
 	width: 66%;
 }
 
 #zonaTicket{
 	display: inline-block;
 	border-left: solid 1px #97bbb9;
-	height: 620px;
+	height: 100%;
 	width: 34%;
 	margin-left: -4px;
 	background-color: rgba(0, 64, 116, 0.1);
@@ -108,8 +108,13 @@
 
 .foot{
 	position:absolute;
-	bottom: 30px;
-	margin-left: 5px;
+	bottom: 25px;
+	width: 100%;
+}
+
+.botonsComanda{
+	margin-top: 10px;
+	margin-left: 13px;
 }
 
 .tipusPizza, .tipus{
@@ -192,14 +197,24 @@ div:hover.efecte img.hover{
 #ticket{
 	background-color: #FFFFFF;
 	width: 85%;
-	height: 80%;
+	height: 85%;
 	margin: auto;
 }
 
 #detallTicket{
 	position: absolute;
 	margin-top: 87px;
-	width: 30%;
+	width: 28%;
+	overflow-y: scroll;
+	height: 350px;
+}
+
+#peuTicket{
+	position: absolute;
+	margin-top: 450px;
+	width: 27%;
+	font-size: large;
+	font-weight: bold;
 }
 
 .logoTicket{

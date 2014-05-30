@@ -11,6 +11,10 @@ urlpatterns = patterns('',
     
     url(r'^entradaProductes/', views.EntrarProducte, name='entradaProductes'),
     
-    url(r'^consultaPizza/', views.ConsultaPizza, name='consultaPizza')
+    url(r'^consultaPizza/', views.ConsultaPizza, name='consultaPizza'),
+    
+    url(r'^consultaIngredient/', views.ConsultaIngredient, name='consultaIngredient'),
+    
+    url(r'^consultaTipusPizza/', views.ConsultaTipusPizza, name='consultaTipusPizza'),
 
 )

@@ -24,7 +24,27 @@ def ConsultaPizza(request):
     varietat = Varietat.objects.get(nom_pizza = pizza)
     respostaAjax = dict()
     respostaAjax['nomFitxer'] = varietat.imatge_pizza_ext
+    respostaAjax['nomPizza'] = varietat.nom_pizza
+    respostaAjax['preu'] = varietat.preu_base
     return HttpResponse(json.dumps(respostaAjax), content_type = 'application/json')
+
+def ConsultaIngredient(request):
+    ingredientSeleccionat = request.GET.get('nom_ingredient')
+    ingredient = Ingredient.objects.get(nom_ingredient = ingredientSeleccionat)
+    print ingredient.preu_ingredient
+    respostaAjaxIng = dict()
+    respostaAjaxIng['extFitxer'] = ingredient.extensio_imatge
+    respostaAjaxIng['nomIngredient'] = ingredient.nom_ingredient
+    respostaAjaxIng['preuIngredient'] = ingredient.preu_ingredient
+    return HttpResponse(json.dumps(respostaAjaxIng), content_type = 'application/json')
+
+def ConsultaTipusPizza(request):
+    tipusSeleccionat = request.GET.get('tipus_pizza')
+    tipus = TipusPizza.objects.get(tipus_pizza = tipusSeleccionat)
+    respostaAjaxTipus = dict()
+    respostaAjaxTipus['tipus'] = tipus.tipus_pizza
+    respostaAjaxTipus['preu'] = tipus.preu_tipus
+    return HttpResponse(json.dumps(respostaAjaxTipus), content_type = 'application/json')
 
 def LesMevesComandes(request):
     return render(request, 'Comanda/lesMevesComandes.html')
