@@ -2,12 +2,11 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, VarietatPizzes, IngredientEnPizza, DadesComanda
+from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, DadesComanda
 from Comanda.forms import AfegirPizza, AfegirIngredient
 from django.contrib import messages
 import json
 import datetime
-
 
 def NovaComanda(request):
     data = datetime.datetime.now()
@@ -31,7 +30,6 @@ def ConsultaPizza(request):
 def ConsultaIngredient(request):
     ingredientSeleccionat = request.GET.get('nom_ingredient')
     ingredient = Ingredient.objects.get(nom_ingredient = ingredientSeleccionat)
-    print ingredient.preu_ingredient
     respostaAjaxIng = dict()
     respostaAjaxIng['extFitxer'] = ingredient.extensio_imatge
     respostaAjaxIng['nomIngredient'] = ingredient.nom_ingredient

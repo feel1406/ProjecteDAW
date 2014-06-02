@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//Blog/forms.py=utf-8
+encoding//Blog/models.py=utf-8
 encoding//Comanda/forms.py=utf-8
 encoding//Comanda/models.py=utf-8
 encoding//Comanda/views.py=utf-8

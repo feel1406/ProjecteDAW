@@ -40,14 +40,6 @@ class TipusPizza(models.Model):
     tipus_pizza = models.TextField(max_length = 50, choices = PIZZA_CHOICES )
     preu_tipus = models.IntegerField(max_length = 20)
     
-class VarietatPizzes(models.Model):
-    varietat_pizza = models.ManyToManyField(Varietat)
-    tipus = models.ManyToManyField(TipusPizza)
-    
-class IngredientEnPizza(models.Model):
-    id_tipus_pizza = models.ForeignKey(TipusPizza)
-    id_ingredient_pizza = models.ForeignKey(Ingredient)
-    
 class DadesComanda(models.Model):
     quantitat = models.IntegerField(blank = False)
     id_pizza_comanda = models.ForeignKey(TipusPizza)

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Nou Blog</title>
+{% endblock title %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="{% url 'Index' %}">Inici</a></li>
+  <li><a href="#">Blog</a></li>
+  <li class="active">Nou Post</li>
+</ol>
+{% if user.is_staff %}
+<blockquote>
+  <h2>Blog.</h2>
+  <h3><small>Crea un nou post per al blog de la pizzería</small></h3>
+</blockquote>
+	<form role="form" action="" method="post">{% csrf_token %}
+			  {% for field in formulariPost %}
+				<div class="form-group">
+    				{{ field.errors }}
+			  		{{ field }}
+  				</div>
+			  {% endfor %}
+			  <button type="submit" class="btn btn-primary">Crear Post</button>
+			</form>	
+{% else %}
+<h2>No tens accés a aquest lloc</h2>
+<a href="{% url 'Index' %}">Anar a Inici</a>
+{% endif %}
+{% endblock content %}

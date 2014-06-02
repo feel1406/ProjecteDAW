@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     # URL de les Comandes:
     url(r'^Comanda/', include('Comanda.urls', namespace = 'Comanda')),
     
+    # URL del Blog
+    url(r'^Blog/', include('Blog.urls', namespace = 'Blog')),
+    
     url(r'^QuiSom/$', 'Proyecto.views.QuiSom', name='QuiSom'),
     
     url(r'^Contacte/$', 'Proyecto.views.Contacte', name='Contacte'),

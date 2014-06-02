@@ -25,10 +25,10 @@
 		<div class="zonaBotons">
 			<!-- Single button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+			  <button type="button" id="botoPizzes" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			   Pizzes <span class="caret"></span>
 			  </button>
-			  <ul class="dropdown-menu" id="pizzes" role="menu">
+			  <ul class="dropdown-menu" id="pizzes" onclick="ActivarBoto();" role="menu">
 			  	{% for pizza in pizzes %}
 			    <li><a href="#">{{ pizza.nom_pizza }}</a></li>
 			    {% endfor %}
@@ -39,7 +39,7 @@
 			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
 			   Tipus De Pizza <span class="caret"></span>
 			  </button>
-			  <ul class="dropdown-menu" id="tipusPizza" role="menu">
+			  <ul class="dropdown-menu" id="tipusPizza" onclick="ActivarBoto();" role="menu">
 			    {% for tipus in tipus %}
 			    <li><a href="#">{{ tipus.tipus_pizza }}</a></li>
 			    {% endfor %}
@@ -78,7 +78,7 @@
 				<div id="detallTicket">
 					<div class="table-responsive">
 					  
-					  <table class="table compraClient">
+					  <table id="taulaTicket" class="table compraClient">
 					  	<thead>
 						  	<tr>
 						  		<td></td>
@@ -97,7 +97,7 @@
 					IVA: 21%<br>
 					<p class="total">Total: </p>
 					<button class="btn btn-danger botonsComanda">Eliminar Article(s)</button>
-					<button class="btn btn-primary botonsComanda" data-toggle="modal" data-target=".bs-example-modal-lg">Realitzar Comanda</button>
+					<button class="btn btn-primary botonsComanda" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="CrearJsonComanda();">Realitzar Comanda</button>
 					<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 					    <div class="modal-content">
@@ -167,7 +167,9 @@
 	setInterval(getData, 1000);
 	var pizzaAlGust = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza"  + " alt=" + "Pizza Seleccionada" + ">";
 	var total = 0;
+	var semaforBoto = false;
 	$("#pizzes li a").click(function(e){
+		semaforBoto = true;
 		var varietatPizza =  $(e.target).text();
 		if(varietatPizza != "Al Gust"){
 			$("#botoIng").addClass("disabled");
@@ -184,7 +186,7 @@
 					preu = data.preu;
 					var baseP = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' alt='Pizza Seleccionada' />";
 					$("#zonaPizza").append(baseP);
-					var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td>1</td><td>" + data.nomPizza + "</td><td> " + data.preu + "</td></td>";
+					var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Varietat</td><td id='varietatPizza'>1</td><td>" + data.nomPizza + "</td><td> " + data.preu + " €</td></td>";
 					$(".compraClient").append(liniaComanda);
 					$(".total").html(null);
 					total = (total + parseInt(preu));
@@ -208,7 +210,7 @@
 					preu = data.preu;
 					var baseP = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' alt='Pizza Seleccionada' />";
 					$("#zonaPizza").append(pizzaAlGust);
-					var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td>1</td><td>" + data.nomPizza + "</td><td> " + data.preu + "</td></td>";
+					var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Varietat</td><td>1</td><td>" + data.nomPizza + "</td><td> " + data.preu + " €</td></td>";
 					$(".compraClient").append(liniaComanda);
 					$(".total").html(null);
 					total = (total + parseInt(preu));
@@ -234,7 +236,7 @@
 				var ingredient = data.nomIngredient;
 				var ingredientSel = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' alt='Ingredient De Pizza Al Gust Seleccionat' />";
 				$("#zonaPizza").append(ingredientSel);
-				var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td></td><td>" + data.nomIngredient + "</td><td> " + data.preuIngredient + "</td></td>";
+				var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Ingredient</td><td id='ingredient'></td><td>" + data.nomIngredient + "</td><td> " + data.preuIngredient + " €</td></td>";
 				total = (total + parseInt(preu));
 				$(".total").html(null);
 				$(".total").append("Total: " + total + " € (IVA Inclós)");
@@ -246,6 +248,7 @@
 		});
 	});
 	$("#tipusPizza li a").click(function(e){
+		semaforBoto = false;
 		var tipus = $(e.target).text();
 		var tipusEnviat = 'tipus_pizza=' + tipus;
 		$.ajax({
@@ -257,9 +260,8 @@
 				tipus = data.tipus;
 				preu = data.preu;
 				total = (total + parseInt(preu));
-				var liniaComanda = "<tr class='tipusPizzaTicket'><td><input type='checkbox' class='eliminar' /></td><td>Pizza:</td><td>" + data.tipus + "</td><td> " + data.preu + "</td></td>";
-				$(".tipusPizzaTicket").html(null);
-				$(".compraClient").prepend(liniaComanda);
+				var liniaComanda = "<tr class='tipusPizzaTicket'><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Tipus</td><td id='tipusPizza'>Tipus:</td><td>" + data.tipus + "</td><td> " + data.preu + " €</td></td>";
+				$(".compraClient").append(liniaComanda);
 				$(".total").html(null);
 				$(".total").append("Total: " + total + " € (IVA Inclós)");
 			},
@@ -277,6 +279,27 @@
 	var increment = (speed/100);
 	for(var x = 0; x<speed; x++){
   		setTimeout(ferPagament(increment),3000);
+	}
+	
+	function ActivarBoto(){
+		if(semaforBoto){
+			$("#botoPizzes").addClass('disabled');
+		}else{
+			$("#botoPizzes").removeClass('disabled');
+		}
+	}
+	
+	function CrearJsonComanda(){
+		var json = [];
+		$('#taulaTicket').find('tbody tr').each(function(){
+    		var obj = {},
+        	$td = $(this).find('td'),
+        	key = $td.eq(1).text(),
+        	val = $td.eq(3).text();
+    		obj[key] = val;
+    		json.push(obj);
+		});
+		alert(JSON.stringify(json));
 	}
 </script>
 {% endif %}
