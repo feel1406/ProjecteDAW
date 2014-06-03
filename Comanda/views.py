@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, DadesComanda
+from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, LiniaComanda
 from Comanda.forms import AfegirPizza, AfegirIngredient
 from django.contrib import messages
 import json
@@ -20,7 +20,7 @@ def NovaComanda(request):
         comanda.comanda_pagada = dades['Pagat']
         comanda.comanda_entregada = dades['Entregada']
         comanda.save()
-        #liniaComanda = DadesComanda()
+        #liniaComanda = LiniaComanda()
         #liniaComanda.id_comanda_pizza = comanda
         #liniaComanda.id_ingredient_pizza_comanda = dades['Ingredient']
         #liniaComanda.id_pizza_comanda = dades['Varietat']
