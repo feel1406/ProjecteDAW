@@ -109,11 +109,14 @@
 					       <div class="page-header">
 							  <h4>Pagament En Efectiu <small>Efectúa el pagament al nostre repartidor</small></h4>
 						   </div>
-					       <input class="form-control" type="text" placeholder="Import que abonaràs al repartidor"/>
+					       <input class="form-control" type="text" placeholder="Import que abonaràs al repartidor"/><br>
+					       <form id="formulariPagament" method="POST" action="{% url 'Comanda:novaComanda' %}">{% csrf_token %}
+					       	<input type="hidden" id="jsonPagament" name="json" />
+					       </form>
+					       <button class="btn btn-primary" data-dismiss="modal" class="botoPagament" value="efectiu" type="button" onclick="Pagar(json, this);">Pagar En Efectiu</button>
 					       <div class="page-header">
 							  <h4>Pagament Amb Targeta <small>Fes el pagament amb la targeta que desitjis</small></h4>
 							</div>
-					       <form role="form">
 						       <input class="form-control" type="text" placeholder="Nom del titular"><br>
 						       <input class="form-control" type="number" placeholder="Targeta" /><br>
 						       <select class="form-control">
@@ -123,8 +126,7 @@
 						       </select><br>
 						       <input class="form-control" type="date" placeholder="Caducitat" /><br>
 						       <input class="form-control" type="number" placeholder="Codi de seguretat"><br>
-					       </form>
-					       <button class="btn btn-primary" onclick="ferPagament(increment);">Fer Pagament</button><br>
+					       <button class="btn btn-primary" data-dismiss="modal" class="botoPagament" value="targeta" type="button" onclick="Pagar(json, this);">Pagar Amb Targeta</button><br>
 					       <input type="hidden" value="10" id="velocitat">
 					       <span class="barraPagament "><br>
 					       		<div class="progress progress-striped active">
@@ -133,10 +135,6 @@
 								  </div>
 								</div>
 					       </span>
-					       </div>
-					       <div class="modal-footer">
-					         <button type="button" class="btn btn-default" data-dismiss="modal">Tornar</button>
-					         <button type="button" class="btn btn-primary">Acceptar</button>
 					       </div>
 					    </div>
 					    </div>
@@ -168,6 +166,8 @@
 	var pizzaAlGust = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza"  + " alt=" + "Pizza Seleccionada" + ">";
 	var total = 0;
 	var semaforBoto = false;
+	var json = [];
+	var data = {};
 	$("#pizzes li a").click(function(e){
 		semaforBoto = true;
 		var varietatPizza =  $(e.target).text();
@@ -270,16 +270,6 @@
 			}
 		});
 	});
-	function ferPagament(increment) {
-  		w = parseInt(document.getElementById('barra').style.width);
-  		document.getElementById('barra').style.width= (w + increment) +'%;';
-	}
-	var w;
-	var speed = document.getElementById('velocitat').value;
-	var increment = (speed/100);
-	for(var x = 0; x<speed; x++){
-  		setTimeout(ferPagament(increment),3000);
-	}
 	
 	function ActivarBoto(){
 		if(semaforBoto){
@@ -290,16 +280,35 @@
 	}
 	
 	function CrearJsonComanda(){
-		var json = [];
-		$('#taulaTicket').find('tbody tr').each(function(){
-    		var obj = {},
-        	$td = $(this).find('td'),
-        	key = $td.eq(1).text(),
-        	val = $td.eq(3).text();
-    		obj[key] = val;
-    		json.push(obj);
-		});
-		alert(JSON.stringify(json));
+		$("#taulaTicket tbody tr").each(function() {
+   			data[$(this).children("td:eq(1)").text()] = $(this).children("td:eq(3)").text();
+		});		
+
+	}
+
+	function Pagar(json, value) {
+		var pagament = $(value).attr("value");
+		if(pagament == 'efectiu'){
+			var obj = {};
+			key = 'Pagat';
+			val = 'False';
+			data[key] = val;
+		}else{
+			var obj = {};
+			key = 'Pagat';
+			val = 'True';
+			data[key] = val;
+		}
+		var obj = {};
+		key = 'PreuTotal';
+		val = total;
+		data[key] = val;
+		keyEnt = 'Entregada';
+		valEnt = 'False'
+		data[keyEnt] = valEnt;
+		var form = $('#formulariPagament');
+		$('#jsonPagament').val(JSON.stringify(data));
+		form.submit();
 	}
 </script>
 {% endif %}

@@ -9,13 +9,27 @@ import json
 import datetime
 
 def NovaComanda(request):
-    data = datetime.datetime.now()
+    if request.method == 'POST':
+        dadesPost = request.POST.get('json')
+        dades = json.loads(dadesPost)
+        comanda = Comanda()        
+        comanda.client = request.user
+        comanda.data_comanda = datetime.datetime.now()
+        comanda.hora_comanda = datetime.datetime.now()
+        comanda.import_comanda = dades['PreuTotal']
+        comanda.comanda_pagada = dades['Pagat']
+        comanda.comanda_entregada = dades['Entregada']
+        comanda.save()
+        #liniaComanda = DadesComanda()
+        #liniaComanda.id_comanda_pizza = comanda
+        #liniaComanda.id_ingredient_pizza_comanda = dades['Ingredient']
+        #liniaComanda.id_pizza_comanda = dades['Varietat']
+        #liniaComanda.save()
+        print dades
+        messages.add_message(request, messages.INFO, 'Comanda processada. El repartidor la portarà a la teva adreça.')
     pizzes = Varietat.objects.all()
     tipus = TipusPizza.objects.all()
     ingredients = Ingredient.objects.all()
-    c = Comanda()
-    c.comanda_pagada = False
-    c.data_comanda = data
     return render(request, 'Comanda/novaComanda.html', {'pizzes' : pizzes, 'tipus' : tipus, 'ingredients' : ingredients})
 
 def ConsultaPizza(request):
@@ -45,10 +59,13 @@ def ConsultaTipusPizza(request):
     return HttpResponse(json.dumps(respostaAjaxTipus), content_type = 'application/json')
 
 def LesMevesComandes(request):
-    return render(request, 'Comanda/lesMevesComandes.html')
+    usuari = request.user
+    comandes = Comanda.objects.filter(client = usuari)
+    return render(request, 'Comanda/lesMevesComandes.html', {'comandes': comandes})
 
 def ComandesClients(request):
-    return render(request, 'Comanda/comandesClients.html')
+    comandes = Comanda.objects.all()
+    return render(request, 'Comanda/comandesClients.html', {'comandes': comandes})
 
 def EntrarProducte(request):
     if request.method == 'POST':

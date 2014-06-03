@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Comanda(models.Model):
-    num_comanda = models.IntegerField(blank = False)
     data_comanda = models.DateField(blank = False)
-    hora_comanda = models.DateTimeField(blank = False)
+    hora_comanda = models.DateField(blank = False)
     import_comanda = models.IntegerField(blank = False)
     comanda_pagada = models.BooleanField(blank = False)
-    client = models.OneToOneField(User)
+    comanda_entregada = models.BooleanField(blank = False)
+    client = models.ForeignKey(User)
     
 class Ingredient(models.Model):
     nom_ingredient = models.TextField(max_length = 150, blank = False)

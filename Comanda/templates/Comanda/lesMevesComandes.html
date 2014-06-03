@@ -13,6 +13,13 @@
   <h2>Les Meves Comandes.</h2>
   <h3><small>Aquí podràs veure comandes entregades i modificar o eliminar comandes pendents.</small></h3>
 </blockquote>
+{% for c in comandes %}
+	{% if c. %}
+	<ul>
+		<li>{{c.import_comanda}}</li>
+		<li>{{c.data_comanda}}</li>
+	</ul>
+{% endfor %}
 <ul class="nav nav-tabs nav-justified">
   <li class="active"><a href="#">Comandes Entregades</a></li>
   <li><a href="#">Comandes Pendents</a></li>

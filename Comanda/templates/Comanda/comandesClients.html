@@ -11,6 +11,15 @@
 </ol>
 {% if user.is_staff %}
 <h1>Aqui estan les comandes dels clients</h1>
+{% for c in comandes %}
+<ul>
+	<li>{{c.client}}</li>
+	<li>{{c.import_comanda}}</li>
+	<li>{{c.data_comanda}}</li>
+	<li>{{c.comanda_pagada}}</li>
+	<li>{{c.comanda_entregada}}</li>
+</ul>
+{% endfor %}
 {% else %}
 <h1>no tens acces a aquesta pagina</h1>
 <a href="{% url 'Index' %}">Anar a Inici</a>

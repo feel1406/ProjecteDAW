@@ -39,7 +39,7 @@ def DadesClient(request):
         formulariDades = DadesUsuari(request.POST, instance = usuari)
         if formulariDades.is_valid():
             fd = formulariDades.save(commit = False)
-            fd.usuari = request.user
+            fd.usuari = request.user.usuari
             fd.save()
             messages.add_message(request, messages.SUCCESS, 'Dades de contacte desades correctament')
             url_next = reverse('Usuari:perfilUsuari')
