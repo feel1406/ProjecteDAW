@@ -325,34 +325,39 @@
 	}
 
 	function CrearJsonComanda() {
+		var c = 0;
 		var tipus;
 		var varietat;
 		var ingredient;
 		$("#taulaTicket tbody tr").each(function(i, item) {
+			
+			
 			if ($(this).children("td:eq(1)").text() == 'Ingredient') {
 				ingredient = $(this).children("td:eq(3)").text();
-			}
-			if($(this).children("td:eq(1)").text() == 'Tipus'){
+			} else if ($(this).children("td:eq(1)").text() == 'Tipus') {
 				tipus = $(this).children("td:eq(3)").text();
-			} 
-			if($(this).children("td:eq(1)").text() == 'Varietat'){
+			} else {
 				varietat = $(this).children("td:eq(3)").text();
-			}
-			data.Pizza.push({
+				if (c == 1){
+				data.Pizza.push({
 				Varietat: varietat,
 				Tipus: tipus,
 				Ingredient: ingredient
-			});						
+				});
+				}else{alert('fff');c=1;}
+			
+			}			
+			
 		});
 	}
 
 	function Pagar(json, value) {
 		var pagament = $(value).attr("value");
 		if (pagament == 'efectiu') {
-			val = false;
+			val = 'False';
 			data.Pagat = val;
 		} else {
-			val = true;
+			val = 'True';
 			data.Pagat = val;
 		}
 		val = total;
