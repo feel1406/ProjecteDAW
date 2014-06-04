@@ -8,152 +8,191 @@
 {% if user.is_authenticated %}
 {% if user.is_staff %}
 <ol class="breadcrumb">
-  <li><a href="{% url 'Index' %}">Inici</a></li>
-  <li><a href="#">Comanda</a></li>
-  <li class="active">Comandes Clients</li>
+	<li>
+		<a href="{% url 'Index' %}">Inici</a>
+	</li>
+	<li>
+		<a href="#">Comanda</a>
+	</li>
+	<li class="active">
+		Comandes Clients
+	</li>
 </ol>
 <h1>Hola {{user.username}}, ets administrador</h1>
 
 {% else %}
 <ol class="breadcrumb">
-  <li><a href="{% url 'Index' %}">Inici</a></li>
-  <li><a href="#">Comanda</a></li>
-  <li class="active">Fer Comanda</li>
+	<li>
+		<a href="{% url 'Index' %}">Inici</a>
+	</li>
+	<li>
+		<a href="#">Comanda</a>
+	</li>
+	<li class="active">
+		Fer Comanda
+	</li>
 </ol>
 <div class="espaiTPV">
 	<div class="head">
 		<div class="zonaBotons">
 			<!-- Single button -->
 			<div class="btn-group">
-			  <button type="button" id="botoPizzes" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-			   Pizzes <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu" id="pizzes" onclick="ActivarBoto();" role="menu">
-			  	{% for pizza in pizzes %}
-			    <li><a href="#">{{ pizza.nom_pizza }}</a></li>
-			    {% endfor %}
-			  </ul>
+				<button type="button" id="botoPizzes" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					Pizzes <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" id="pizzes" onclick="ActivarBoto();" role="menu">
+					{% for pizza in pizzes %}
+					<li>
+						<a href="#">{{ pizza.nom_pizza }}</a>
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
 			<!-- Single button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-			   Tipus De Pizza <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu" id="tipusPizza" onclick="ActivarBoto();" role="menu">
-			    {% for tipus in tipus %}
-			    <li><a href="#">{{ tipus.tipus_pizza }}</a></li>
-			    {% endfor %}
-			  </ul>
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+					Tipus De Pizza <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" id="tipusPizza" onclick="ActivarBoto();" role="menu">
+					{% for tipus in tipus %}
+					<li>
+						<a href="#">{{ tipus.tipus_pizza }}</a>
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
 			<!-- Single button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-primary dropdown-toggle disabled" id="botoIng" data-toggle="dropdown">
-			   Ingredients <span class="caret"></span>
-			  </button>
-			  <ul class="dropdown-menu" id="ingredients" role="menu">
-			    {% for ingredient in ingredients %}
-			    <li><a href="#">{{ ingredient.nom_ingredient }}</a></li>
-			    {% endfor %}
-			  </ul>
+				<button type="button" class="btn btn-primary dropdown-toggle disabled" id="botoIng" data-toggle="dropdown">
+					Ingredients <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" id="ingredients" role="menu">
+					{% for ingredient in ingredients %}
+					<li>
+						<a href="#">{{ ingredient.nom_ingredient }}</a>
+					</li>
+					{% endfor %}
+				</ul>
 			</div>
 		</div>
 	</div>
 	<div class="body">
 		<div id="zonaPizza">
 			{% load staticfiles %}
-			
+
 		</div>
 		<div id="zonaTicket">
 			<div id="ticket">
 				<div id="infoEmpresaTicket">
 					<img src="{% static 'img/logo-pizza.png' %}" alt="Logo Empresarial Per Al Ticket" class="logoTicket" />
 					<p class="dadesEmpresaTicket">
-						CendraPizza SL.<br>
-						C/ Pelai Martínez 2<br>
-						Figueres, 17600 (Girona)<br>
-						972 678 567<br>
+						CendraPizza SL.
+						<br>
+						C/ Pelai Martínez 2
+						<br>
+						Figueres, 17600 (Girona)
+						<br>
+						972 678 567
+						<br>
 						administracio@cendrapizza.cat
 					</p>
 				</div>
 				<div id="detallTicket">
 					<div class="table-responsive">
-					  
-					  <table id="taulaTicket" class="table compraClient">
-					  	<thead>
-						  	<tr>
-						  		<td></td>
-						  		<td>Qtat</td>
-						    	<td>Pizza</td>
-						    	<td>Preu</td>
-						  	</tr>
-					  </thead>
-					  <tbody>	  	
-					  </tbody>
-					   
-					  </table>
+
+						<table id="taulaTicket" class="table compraClient">
+							<thead>
+								<tr>
+									<td></td>
+									<td>Qtat</td>
+									<td>Pizza</td>
+									<td>Preu</td>
+								</tr>
+							</thead>
+							<tbody></tbody>
+
+						</table>
 					</div>
 				</div>
 				<div id="peuTicket">
-					IVA: 21%<br>
-					<p class="total">Total: </p>
-					<button class="btn btn-danger botonsComanda">Eliminar Article(s)</button>
-					<button class="btn btn-primary botonsComanda" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="CrearJsonComanda();">Realitzar Comanda</button>
+					IVA: 21%
+					<br>
+					<p class="total">
+						Total:
+					</p>
+					<button class="btn btn-danger botonsComanda">
+						Eliminar Article(s)
+					</button>
+					<button class="btn btn-primary botonsComanda" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="CrearJsonComanda();">
+						Realitzar Comanda
+					</button>
 					<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg">
-					    <div class="modal-content">
-					       <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					       	<h4 class="modal-title" id="myModalLabel">Pagament</h4>
-					       </div>
-					       <div class="modal-body">
-					       <div class="page-header">
-							  <h4>Pagament En Efectiu <small>Efectúa el pagament al nostre repartidor</small></h4>
-						   </div>
-					       <input class="form-control" type="text" placeholder="Import que abonaràs al repartidor"/><br>
-					       <form id="formulariPagament" method="POST" action="{% url 'Comanda:novaComanda' %}">{% csrf_token %}
-					       	<input type="hidden" id="jsonPagament" name="json" />
-					       </form>
-					       <button class="btn btn-primary" data-dismiss="modal" class="botoPagament" value="efectiu" type="button" onclick="Pagar(json, this);">Pagar En Efectiu</button>
-					       <div class="page-header">
-							  <h4>Pagament Amb Targeta <small>Fes el pagament amb la targeta que desitjis</small></h4>
-							</div>
-						       <input class="form-control" type="text" placeholder="Nom del titular"><br>
-						       <input class="form-control" type="number" placeholder="Targeta" /><br>
-						       <select class="form-control">
-						       	<option>Visa</option>
-						       	<option>Master Card</option>
-						       	<option>Euro 6000</option>
-						       </select><br>
-						       <input class="form-control" type="date" placeholder="Caducitat" /><br>
-						       <input class="form-control" type="number" placeholder="Codi de seguretat"><br>
-					       <button class="btn btn-primary" data-dismiss="modal" class="botoPagament" value="targeta" type="button" onclick="Pagar(json, this);">Pagar Amb Targeta</button><br>
-					       <input type="hidden" value="10" id="velocitat">
-					       <span class="barraPagament "><br>
-					       		<div class="progress progress-striped active">
-								  <div class="progress-bar" id="barra"  role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-								    <span class="sr-only">80% Complete</span>
-								  </div>
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+										&times;
+									</button>
+									<h4 class="modal-title" id="myModalLabel">Pagament</h4>
 								</div>
-					       </span>
-					       </div>
-					    </div>
-					    </div>
-					  </div>
+								<div class="modal-body">
+									<div class="page-header">
+										<h4>Pagament En Efectiu <small>Efectúa el pagament al nostre repartidor</small></h4>
+									</div>
+									<input class="form-control" type="text" placeholder="Import que abonaràs al repartidor"/>
+									<br>
+									<form id="formulariPagament" method="POST" action="{% url 'Comanda:novaComanda' %}">
+										{% csrf_token %}
+										<input type="hidden" id="jsonPagament" name="json" />
+									</form>
+									<button class="btn btn-primary" data-dismiss="modal" class="botoPagament" value="efectiu" type="button" onclick="Pagar(json, this);">
+										Pagar En Efectiu
+									</button>
+									<div class="page-header">
+										<h4>Pagament Amb Targeta <small>Fes el pagament amb la targeta que desitjis</small></h4>
+									</div>
+									<input class="form-control" type="text" placeholder="Nom del titular">
+									<br>
+									<input class="form-control" type="number" placeholder="Targeta" />
+									<br>
+									<select class="form-control">
+										<option>Visa</option>
+										<option>Master Card</option>
+										<option>Euro 6000</option>
+									</select>
+									<br>
+									<input class="form-control" type="date" placeholder="Caducitat" />
+									<br>
+									<input class="form-control" type="number" placeholder="Codi de seguretat">
+									<br>
+									<button class="btn btn-primary" data-dismiss="modal" class="botoPagament" value="targeta" type="button" onclick="Pagar(json, this);">
+										Pagar Amb Targeta
+									</button>
+									<br>
+									<input type="hidden" value="10" id="velocitat">
+									<span class="barraPagament ">
+										<br>
+										<div class="progress progress-striped active">
+											<div class="progress-bar" id="barra"  role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+												<span class="sr-only">80% Complete</span>
+											</div>
+										</div> </span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="foot">
-			<span class="data">
-				<p id="dia"></p>
-				<p id="hora"></p>
-			</span>
+	</div>
+	<div class="foot">
+		<span class="data"> <p id="dia"></p> <p id="hora"></p> </span>
 
-		</div>
 	</div>
 </div>
+</div>
 <script>
-	function getData(){
+	function getData() {
 		var data = new Date();
 		var hora;
 		var dia;
@@ -162,29 +201,35 @@
 		document.getElementById("dia").innerHTML = '<span class="glyphicon glyphicon-calendar"></span> ' + dia;
 		document.getElementById("hora").innerHTML = '<span class="glyphicon glyphicon-time"></span> ' + hora;
 	}
+
 	setInterval(getData, 1000);
-	var pizzaAlGust = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza"  + " alt=" + "Pizza Seleccionada" + ">";
+	var pizzaAlGust = "<img src=" + "{% static 'img/basePizza.png' %}" + " class=" + "basePizza" + " alt=" + "Pizza Seleccionada" + ">";
 	var total = 0;
 	var semaforBoto = false;
 	var json = [];
-	var data = {};
-	$("#pizzes li a").click(function(e){
+	var data = {
+		Pagat : false,
+		Entregada : false,
+		Pizza : new Array(),
+		PreuTotal : 0
+	};
+	$("#pizzes li a").click(function(e) {
 		semaforBoto = true;
-		var varietatPizza =  $(e.target).text();
-		if(varietatPizza != "Al Gust"){
+		var varietatPizza = $(e.target).text();
+		if (varietatPizza != "Al Gust") {
 			$("#botoIng").addClass("disabled");
 			$("#zonaPizza").html(null);
 			var pizza = 'nom_pizza=' + varietatPizza;
 			var fitxer;
 			$.ajax({
-				url: '/Comanda/consultaPizza',
-				data: pizza,
-				type: 'GET',
-				dataType: 'json',
-				success: function( data, textStatus, jqXHR) {
+				url : '/Comanda/consultaPizza',
+				data : pizza,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data, textStatus, jqXHR) {
 					fitxer = data.nomFitxer;
 					preu = data.preu;
-					var baseP = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' alt='Pizza Seleccionada' />";
+					var baseP = "<img src='{% static 'img/' %}" + fitxer + "' class='basePizza' alt='Pizza Seleccionada' />";
 					$("#zonaPizza").append(baseP);
 					var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Varietat</td><td id='varietatPizza'>1</td><td>" + data.nomPizza + "</td><td> " + data.preu + " €</td></td>";
 					$(".compraClient").append(liniaComanda);
@@ -192,7 +237,7 @@
 					total = (total + parseInt(preu));
 					$(".total").append("Total: " + total + " € (IVA Inclós)");
 				},
-				error: function( jqXHR, textStatus, errorThrown ) {
+				error : function(jqXHR, textStatus, errorThrown) {
 					alert(errorThrown);
 				}
 			});
@@ -201,14 +246,14 @@
 			$("#zonaPizza").html(null);
 			var pizza = 'nom_pizza=' + varietatPizza;
 			$.ajax({
-				url: '/Comanda/consultaPizza',
-				data: pizza,
-				type: 'GET',
-				dataType: 'json',
-				success: function(data, textStatus, jqXHR){
+				url : '/Comanda/consultaPizza',
+				data : pizza,
+				type : 'GET',
+				dataType : 'json',
+				success : function(data, textStatus, jqXHR) {
 					fitxer = data.nomFitxer;
 					preu = data.preu;
-					var baseP = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' alt='Pizza Seleccionada' />";
+					var baseP = "<img src='{% static 'img/' %}" + fitxer + "' class='basePizza' alt='Pizza Seleccionada' />";
 					$("#zonaPizza").append(pizzaAlGust);
 					var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Varietat</td><td>1</td><td>" + data.nomPizza + "</td><td> " + data.preu + " €</td></td>";
 					$(".compraClient").append(liniaComanda);
@@ -216,25 +261,25 @@
 					total = (total + parseInt(preu));
 					$(".total").append("Total: " + total + " € (IVA Inclós)");
 				},
-				error: function(jqXHR, textStatus, errorThrown){
+				error : function(jqXHR, textStatus, errorThrown) {
 					alert(errorThrown);
 				}
 			});
 		}
 	});
-	$("#ingredients li a").click(function(e){
+	$("#ingredients li a").click(function(e) {
 		var ingredient = $(e.target).text();
 		var ingEnviat = 'nom_ingredient=' + ingredient;
 		$.ajax({
-			url: '/Comanda/consultaIngredient',
-			data: ingEnviat,
-			type: 'GET',
-			dataType: 'json',
-			success: function(data, textStatus, jqXHR){
+			url : '/Comanda/consultaIngredient',
+			data : ingEnviat,
+			type : 'GET',
+			dataType : 'json',
+			success : function(data, textStatus, jqXHR) {
 				var fitxer = data.extFitxer;
 				var preu = data.preuIngredient;
 				var ingredient = data.nomIngredient;
-				var ingredientSel = "<img src='{% static 'img/' %}" + fitxer +  "' class='basePizza' alt='Ingredient De Pizza Al Gust Seleccionat' />";
+				var ingredientSel = "<img src='{% static 'img/' %}" + fitxer + "' class='basePizza' alt='Ingredient De Pizza Al Gust Seleccionat' />";
 				$("#zonaPizza").append(ingredientSel);
 				var liniaComanda = "<tr><td><input type='checkbox' class='eliminar' /></td><td class='amagar'>Ingredient</td><td id='ingredient'></td><td>" + data.nomIngredient + "</td><td> " + data.preuIngredient + " €</td></td>";
 				total = (total + parseInt(preu));
@@ -242,21 +287,21 @@
 				$(".total").append("Total: " + total + " € (IVA Inclós)");
 				$(".compraClient").append(liniaComanda);
 			},
-			error: function(jqXHR, textStatus, errorThrown){
+			error : function(jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
 			}
 		});
 	});
-	$("#tipusPizza li a").click(function(e){
+	$("#tipusPizza li a").click(function(e) {
 		semaforBoto = false;
 		var tipus = $(e.target).text();
 		var tipusEnviat = 'tipus_pizza=' + tipus;
 		$.ajax({
-			url: '/Comanda/consultaTipusPizza',
-			data: tipusEnviat,
-			type: 'GET',
-			datatype: 'json',
-			success: function(data, textStatus, jqXHR){
+			url : '/Comanda/consultaTipusPizza',
+			data : tipusEnviat,
+			type : 'GET',
+			datatype : 'json',
+			success : function(data, textStatus, jqXHR) {
 				tipus = data.tipus;
 				preu = data.preu;
 				total = (total + parseInt(preu));
@@ -265,142 +310,144 @@
 				$(".total").html(null);
 				$(".total").append("Total: " + total + " € (IVA Inclós)");
 			},
-			error: function(jqXHR, textStatus, errorThrown){
+			error : function(jqXHR, textStatus, errorThrown) {
 				alert(errorThrown);
 			}
 		});
 	});
-	
-	function ActivarBoto(){
-		if(semaforBoto){
+
+	function ActivarBoto() {
+		if (semaforBoto) {
 			$("#botoPizzes").addClass('disabled');
-		}else{
+		} else {
 			$("#botoPizzes").removeClass('disabled');
 		}
 	}
-	
-	function CrearJsonComanda(){
-		$("#taulaTicket tbody tr").each(function() {
-   			data[$(this).children("td:eq(1)").text()] = $(this).children("td:eq(3)").text();
-		});		
 
+	function CrearJsonComanda() {
+		var tipus;
+		var varietat;
+		var ingredient;
+		$("#taulaTicket tbody tr").each(function(i, item) {
+			if ($(this).children("td:eq(1)").text() == 'Ingredient') {
+				ingredient = $(this).children("td:eq(3)").text();
+			}
+			if($(this).children("td:eq(1)").text() == 'Tipus'){
+				tipus = $(this).children("td:eq(3)").text();
+			} 
+			if($(this).children("td:eq(1)").text() == 'Varietat'){
+				varietat = $(this).children("td:eq(3)").text();
+			}
+			data.Pizza.push({
+				Varietat: varietat,
+				Tipus: tipus,
+				Ingredient: ingredient
+			});						
+		});
 	}
 
 	function Pagar(json, value) {
 		var pagament = $(value).attr("value");
-		if(pagament == 'efectiu'){
-			var obj = {};
-			key = 'Pagat';
-			val = 'False';
-			data[key] = val;
-		}else{
-			var obj = {};
-			key = 'Pagat';
-			val = 'True';
-			data[key] = val;
+		if (pagament == 'efectiu') {
+			val = false;
+			data.Pagat = val;
+		} else {
+			val = true;
+			data.Pagat = val;
 		}
-		var obj = {};
-		key = 'PreuTotal';
 		val = total;
-		data[key] = val;
-		keyEnt = 'Entregada';
-		valEnt = 'False';
-		data[keyEnt] = valEnt;
+		data.PreuTotal = val;
 		var form = $('#formulariPagament');
 		$('#jsonPagament').val(JSON.stringify(data));
-		form.submit();
+		console.log((JSON.stringify(data)));
+		//form.submit();
+		quantitat = 1;
 	}
 </script>
 {% endif %}
 {% else %}
 <blockquote>
-  <h2>Per fer comandes on-line, és necessàri tenir compte de client.</h2>
-  <h3><small>Fes-te un compte i disfruta de grans avantatges únics!.</small></h3>
+	<h2>Per fer comandes on-line, és necessàri tenir compte de client.</h2>
+	<h3><small>Fes-te un compte i disfruta de grans avantatges únics!.</small></h3>
 </blockquote>
 
 <div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-          Comanda On-Line!
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
-      <div class="panel-body">
-        Fes la teva comanda des de casa. Utilitza el teu ordinador, tablet o smartphone per realitzar la teva
-        comanda a CendraPizza. Disfruta de la comoditat i rapidesa del nostre servei de comandes web per 
-        gaudir dels millors productes alimentàris que t'oferim.
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-          Enviament a domicili!
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse">
-      <div class="panel-body">
-        A més, t'oferim el servei a domicili d'entrega de la teva comanda. En mitja hora, tindràs a un dels nostres repartidors
-        a la teva porta. Ràpid, per a que disfrutis de la pizza recent feta i amb tot el gust.
-        A més, si ets client, el servei es gratuït!!.
-      </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Ofertes especials!
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse">
-      <div class="panel-body">
-        També tindràs accés a ofertes especials per a clients. Descomptes, preus especials, productes de la setmana i
-        oferta del mes. Tot això només creant un compte!
-        I amb cada compra, acumularàs punts per canviar-los per pizzes adicionals, postres extres, begudes i molt més.
-      </div>
-    </div>
-  </div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> Comanda On-Line! </a></h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+				Fes la teva comanda des de casa. Utilitza el teu ordinador, tablet o smartphone per realitzar la teva
+				comanda a CendraPizza. Disfruta de la comoditat i rapidesa del nostre servei de comandes web per
+				gaudir dels millors productes alimentàris que t'oferim.
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> Enviament a domicili! </a></h4>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse">
+			<div class="panel-body">
+				A més, t'oferim el servei a domicili d'entrega de la teva comanda. En mitja hora, tindràs a un dels nostres repartidors
+				a la teva porta. Ràpid, per a que disfrutis de la pizza recent feta i amb tot el gust.
+				A més, si ets client, el servei es gratuït!!.
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> Ofertes especials! </a></h4>
+		</div>
+		<div id="collapseThree" class="panel-collapse collapse">
+			<div class="panel-body">
+				També tindràs accés a ofertes especials per a clients. Descomptes, preus especials, productes de la setmana i
+				oferta del mes. Tot això només creant un compte!
+				I amb cada compra, acumularàs punts per canviar-los per pizzes adicionals, postres extres, begudes i molt més.
+			</div>
+		</div>
+	</div>
 </div>
 <hr>
 <div class="row">
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail efecte">
-      <img class="imatge" src="{% static 'img/crearClient.png' %}" alt="Aplicació Web ràpida per a qualsevol usuari">
-      <img class="imatge hover" src="{% static 'img/ferComanda.png' %}" alt="Aplicació Web ràpida per a qualsevol usuari">
-      <div class="caption">
-        <h3>Ràpid</h3>
-        <p>Amb la nostra aplicació web, podràs fer comandes ràpidament.
-        	Només cal crear un usuari, i llest!. En dos pasos, ja pots demanar la teva pizza!</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail efecte">
-      <img class="imatge" src="{% static 'img/usTPV.png' %}" alt="Crea la teva comanda de forma intuitiva!,">
-      <img class="imatge hover m" src="{% static 'img/tipusPizza.png' %}" alt="Tria una pizza o fes la teva al gust.">
-      <div class="caption">
-        <h3>Intuitiu</h3>
-        <p>Demana una de les nostres pizzes, o fes la teva pròpia. Tria el tipus de pizza
-        	que més t'agradi, i afegeix els teus ingredients preferits! No hi ha límit!.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img data-src="holder.js/300x200" alt="Facilitat de pagament. Targeta o efectiu!.">
-      <div class="caption">
-        <h3>Còmode</h3>
-        <p>Fes el pagament amb targeta o bé paga al nostre repartidor en efectiu quan t'ho portem. tu tries la opció que vulguis.</p>
-      </div>
-    </div>
-  </div>
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail efecte">
+			<img class="imatge" src="{% static 'img/crearClient.png' %}" alt="Aplicació Web ràpida per a qualsevol usuari">
+			<img class="imatge hover" src="{% static 'img/ferComanda.png' %}" alt="Aplicació Web ràpida per a qualsevol usuari">
+			<div class="caption">
+				<h3>Ràpid</h3>
+				<p>
+					Amb la nostra aplicació web, podràs fer comandes ràpidament.
+					Només cal crear un usuari, i llest!. En dos pasos, ja pots demanar la teva pizza!
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail efecte">
+			<img class="imatge" src="{% static 'img/usTPV.png' %}" alt="Crea la teva comanda de forma intuitiva!,">
+			<img class="imatge hover m" src="{% static 'img/tipusPizza.png' %}" alt="Tria una pizza o fes la teva al gust.">
+			<div class="caption">
+				<h3>Intuitiu</h3>
+				<p>
+					Demana una de les nostres pizzes, o fes la teva pròpia. Tria el tipus de pizza
+					que més t'agradi, i afegeix els teus ingredients preferits! No hi ha límit!.
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6 col-md-4">
+		<div class="thumbnail">
+			<img data-src="holder.js/300x200" alt="Facilitat de pagament. Targeta o efectiu!.">
+			<div class="caption">
+				<h3>Còmode</h3>
+				<p>
+					Fes el pagament amb targeta o bé paga al nostre repartidor en efectiu quan t'ho portem. tu tries la opció que vulguis.
+				</p>
+			</div>
+		</div>
+	</div>
 </div>
 {% endif %}
 
