@@ -92,7 +92,6 @@ LANGUAGES = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = '/var/www/proyecto/static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
