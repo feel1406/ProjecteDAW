@@ -26,8 +26,9 @@ def NovaComanda(request):
         for d in dades['Pizza']:                    
             liniaComanda.id_tipus = TipusPizza.objects.get(tipus_pizza = d['Tipus'])
             liniaComanda.id_varietat = Varietat.objects.get(nom_pizza = d['Varietat'])
-            for i in d['Ingredient']:                
-                liniaComanda.id_ingredient.add(Ingredient.objects.filter(nom_ingredient = i))
+            if d['Varietat'] == 'Al Gust':                
+                for i in d['Ingredient']:
+                    liniaComanda.id_ingredient.add(Ingredient.objects.filter(nom_ingredient = i))
         liniaComanda.save()
         messages.add_message(request, messages.INFO, 'Comanda processada. El repartidor la portarà a la teva adreça.')
     pizzes = Varietat.objects.all()
