@@ -30,18 +30,19 @@ class Varietat(models.Model):
 
 class TipusPizza(models.Model):
     PIZZA_CHOICES = (
-                     ('Calzone', 'CA'),
-                     ('Normal', 'NO'),
-                     ('Massa Fina', 'MF'),
-                     ('Focaccia', 'FO'),
-                     ('Panini', 'PA'),
-                     ('Massa De Pa', 'MP'),
+                     ('Calzone', 'Calzone'),
+                     ('Normal', 'Normal'),
+                     ('Massa Fina', 'Massa Fina'),
+                     ('Focaccia', 'Focaccia'),
+                     ('Panini', 'Panini'),
+                     ('Massa De Pa', 'Massa De Pa'),
     )     
     tipus_pizza = models.TextField(max_length = 50, choices = PIZZA_CHOICES )
     preu_tipus = models.IntegerField(max_length = 20)
     
 class LiniaComanda(models.Model):
     quantitat = models.IntegerField(blank = False)
-    id_pizza_comanda = models.ForeignKey(TipusPizza)
-    id_comanda_pizza = models.ForeignKey(Comanda)
-    id_ingredient_pizza_comanda = models.ManyToManyField(Ingredient)
+    id_comanda = models.ForeignKey(Comanda)
+    id_tipus = models.ForeignKey(TipusPizza)
+    id_varietat = models.ForeignKey(Varietat)    
+    id_ingredient = models.ManyToManyField(Ingredient)

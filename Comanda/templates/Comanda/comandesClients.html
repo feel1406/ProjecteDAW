@@ -5,20 +5,43 @@
 
 {% block content %}
 <ol class="breadcrumb">
-  <li><a href="{% url 'Index' %}">Inici</a></li>
-  <li><a href="#">Comandes</a></li>
-  <li class="active">Comandes Clients</li>
+	<li>
+		<a href="{% url 'Index' %}">Inici</a>
+	</li>
+	<li>
+		<a href="#">Comandes</a>
+	</li>
+	<li class="active">
+		Comandes Clients
+	</li>
 </ol>
 {% if user.is_staff %}
-<h1>Aqui estan les comandes dels clients</h1>
+<blockquote>
+	<h2>Comandes Dels Clients</h2>
+	<h3>Gestiona les comandes de cada client<small></small></h3>
+</blockquote>
 {% for c in comandes %}
-<ul>
-	<li>{{c.client}}</li>
-	<li>{{c.import_comanda}}</li>
-	<li>{{c.data_comanda}}</li>
-	<li>{{c.comanda_pagada}}</li>
-	<li>{{c.comanda_entregada}}</li>
-</ul>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Comanda {{c.id}} de {{c.client}}
+	</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item">
+				Data de la comanda: {{c.data_comanda}}
+			</li>
+			<li class="list-group-item">
+				Import total: {{c.import_comanda}}
+			</li>
+			<li class="list-group-item">
+				Pagament: {{c.comanda_pagada}}
+			</li>
+			<li class="list-group-item">
+				Estat de la comanda: {{c.comanda_entregada}}
+			</li>
+		</ul>
+	</div>
+</div>
 {% endfor %}
 {% else %}
 <h1>no tens acces a aquesta pagina</h1>

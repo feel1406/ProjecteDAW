@@ -20,12 +20,15 @@ def NovaComanda(request):
         comanda.comanda_pagada = dades['Pagat']
         comanda.comanda_entregada = dades['Entregada']
         comanda.save()
-        #liniaComanda = LiniaComanda()
-        #liniaComanda.id_comanda_pizza = comanda
-        #liniaComanda.id_ingredient_pizza_comanda = dades['Ingredient']
-        #liniaComanda.id_pizza_comanda = dades['Varietat']
-        #liniaComanda.save()
-        print dades
+        liniaComanda = LiniaComanda()
+        liniaComanda.id_comanda = comanda
+        liniaComanda.quantitat = 1
+        for d in dades['Pizza']:                    
+            liniaComanda.id_tipus = TipusPizza.objects.get(tipus_pizza = d['Tipus'])
+            liniaComanda.id_varietat = Varietat.objects.get(nom_pizza = d['Varietat'])
+            for i in d['Ingredient']:                
+                liniaComanda.id_ingredient.add(Ingredient.objects.filter(nom_ingredient = i))
+        liniaComanda.save()
         messages.add_message(request, messages.INFO, 'Comanda processada. El repartidor la portarà a la teva adreça.')
     pizzes = Varietat.objects.all()
     tipus = TipusPizza.objects.all()
@@ -61,11 +64,13 @@ def ConsultaTipusPizza(request):
 def LesMevesComandes(request):
     usuari = request.user
     comandes = Comanda.objects.filter(client = usuari)
-    return render(request, 'Comanda/lesMevesComandes.html', {'comandes': comandes})
+    liniaComanda = LiniaComanda.objects.all()
+    return render(request, 'Comanda/lesMevesComandes.html', {'comandes': comandes, 'liniaComanda': liniaComanda})
 
 def ComandesClients(request):
     comandes = Comanda.objects.all()
-    return render(request, 'Comanda/comandesClients.html', {'comandes': comandes})
+    liniaComanda = LiniaComanda.objects.all()
+    return render(request, 'Comanda/comandesClients.html', {'comandes': comandes, 'liniaComanda' : liniaComanda})
 
 def EntrarProducte(request):
     if request.method == 'POST':

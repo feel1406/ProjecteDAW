@@ -5,23 +5,43 @@
 
 {% block content %}
 <ol class="breadcrumb">
-  <li><a href="{% url 'Index' %}">Inici</a></li>
-  <li><a href="#">Perfil</a></li>
-  <li class="active">Les Meves Comandes</li>
+	<li>
+		<a href="{% url 'Index' %}">Inici</a>
+	</li>
+	<li>
+		<a href="#">Perfil</a>
+	</li>
+	<li class="active">
+		Les Meves Comandes
+	</li>
 </ol>
 <blockquote>
-  <h2>Les Meves Comandes.</h2>
-  <h3><small>Aquí podràs veure comandes entregades i modificar o eliminar comandes pendents.</small></h3>
+	<h2>Les Meves Comandes.</h2>
+	<h3><small>Aquí podràs veure comandes entregades i modificar o eliminar comandes pendents.</small></h3>
 </blockquote>
 {% for c in comandes %}
-	{% if c. %}
-	<ul>
-		<li>{{c.import_comanda}}</li>
-		<li>{{c.data_comanda}}</li>
-	</ul>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		Comanda del dia {{c.data_comanda}}
+	</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item">
+				Import de la comanda: {{c.import_comanda}}€
+			</li>
+			<li class="list-group-item">
+				Estat de la comanda: {{c.comanda_entregada}}
+			</li>
+		</ul>
+	</div>
+</div>
 {% endfor %}
 <ul class="nav nav-tabs nav-justified">
-  <li class="active"><a href="#">Comandes Entregades</a></li>
-  <li><a href="#">Comandes Pendents</a></li>
+	<li class="active">
+		<a href="#">Comandes Entregades</a>
+	</li>
+	<li>
+		<a href="#">Comandes Pendents</a>
+	</li>
 </ul>
 {% endblock %}

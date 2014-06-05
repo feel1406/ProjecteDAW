@@ -325,30 +325,44 @@
 	}
 
 	function CrearJsonComanda() {
-		var c = 0;
+		var aux = 0;
 		var tipus;
 		var varietat;
 		var ingredient;
-		$("#taulaTicket tbody tr").each(function(i, item) {
-			
-			
+		var arrayIngredient = new Array();
+		$("#taulaTicket tbody tr").each(function(i, item) {						
 			if ($(this).children("td:eq(1)").text() == 'Ingredient') {
 				ingredient = $(this).children("td:eq(3)").text();
+				arrayIngredient.push(ingredient);
 			} else if ($(this).children("td:eq(1)").text() == 'Tipus') {
 				tipus = $(this).children("td:eq(3)").text();
-			} else {
-				varietat = $(this).children("td:eq(3)").text();
-				if (c == 1){
-				data.Pizza.push({
-				Varietat: varietat,
-				Tipus: tipus,
-				Ingredient: ingredient
-				});
-				}else{alert('fff');c=1;}
-			
+			} else {				
+				if (aux == 1){
+					data.Pizza.push({
+						Varietat: varietat,
+						Tipus: tipus,
+						Ingredient: ingredient
+					});
+				}else{
+					aux = 1;
+				}
+				varietat = $(this).children("td:eq(3)").text();			
 			}			
 			
 		});
+		if(varietat == "Al Gust"){
+			data.Pizza.push({
+				Varietat: varietat,
+				Tipus: tipus,
+				Ingredient: arrayIngredient
+			});	
+		}else{
+			data.Pizza.push({
+				Varietat: varietat,
+				Tipus: tipus,
+				Ingredient: ingredient
+			});						
+		}	
 	}
 
 	function Pagar(json, value) {
@@ -365,8 +379,7 @@
 		var form = $('#formulariPagament');
 		$('#jsonPagament').val(JSON.stringify(data));
 		console.log((JSON.stringify(data)));
-		//form.submit();
-		quantitat = 1;
+		form.submit();
 	}
 </script>
 {% endif %}
