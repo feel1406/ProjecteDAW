@@ -29,19 +29,56 @@
 			<li class="list-group-item">
 				Import de la comanda: {{c.import_comanda}}€
 			</li>
-			<li class="list-group-item">
-				Estat de la comanda: {{c.comanda_entregada}}
+			{% if c.comanda_entregada == False %}
+			<li class="list-group-item list-group-item-danger">
+				Estat de la comanda: No Entregada
 			</li>
+			{% else %}
+			<li class="list-group-item list-group-item-primary">
+				Estat de la comanda: Entregada
+			</li>
+			{% endif %}
+			{% for l in c.liniacomanda_set.all %}
+			<li class="list-group-item">
+				Varietat: {{l.id_varietat.nom_pizza}}
+			</li>
+			<li class="list-group-item">
+				Tipus Pizza: {{l.id_tipus.tipus_pizza}}
+			</li>
+			<li class="list-group-item">
+				Ingredients: {{l.id_ingredient.nom_ingredient}}
+			</li>
+			{% endfor %}
 		</ul>
 	</div>
 </div>
 {% endfor %}
-<ul class="nav nav-tabs nav-justified">
-	<li class="active">
-		<a href="#">Comandes Entregades</a>
-	</li>
-	<li>
-		<a href="#">Comandes Pendents</a>
-	</li>
-</ul>
+<div class="paginator">
+	<ul class="pager">
+		{% if comandes.has_previous %}
+		<li class="previous">
+			<a href="?page={{ comandes.previous_page_number}}">&larr; Anterior</a>
+		</li>
+		{% else %}
+		<li class="previous disabled">
+			<a href="#">&larr; Anterior</a>
+		</li>
+		{% endif %}
+		<span class="current"> Pàgina {{comandes.number}} de {{ comandes.paginator.num_pages}} </span>
+		{% if comandes.has_next %}
+		<li class="next">
+			<a href="?page={{ comandes.next_page_number}}">Següent &rarr;</a>
+		</li>
+		{% else %}
+		<li class="next disabled">
+			<a href="#">Següent &rarr;</a>
+		</li>
+		{% endif %}
+	</ul>
+</div>
+<script>
+	$(".botoEntrega").click(function() {
+		$(this).parent().removeClass('list-group-item-danger');
+	}); 
+</script>
 {% endblock %}

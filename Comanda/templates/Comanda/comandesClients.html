@@ -36,9 +36,18 @@
 			<li class="list-group-item">
 				Pagament: {{c.comanda_pagada}}
 			</li>
-			<li class="list-group-item">
-				Estat de la comanda: {{c.comanda_entregada}}
+			{% if c.comanda_entregada == False %}
+			<li class="list-group-item list-group-item-danger">
+				Estat de la comanda: No Entregada
+				<button class="btn btn-primary botoEntrega">
+					Comanda Entregada
+				</button>
 			</li>
+			{% else %}
+			<li class="list-group-item">
+				Estat de la comanda: Entregada
+			</li>
+			{% endif %}
 		</ul>
 	</div>
 </div>

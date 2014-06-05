@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, LiniaComanda
 from Comanda.forms import AfegirPizza, AfegirIngredient
 from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import json
 import datetime
 
@@ -26,10 +27,11 @@ def NovaComanda(request):
         for d in dades['Pizza']:                    
             liniaComanda.id_tipus = TipusPizza.objects.get(tipus_pizza = d['Tipus'])
             liniaComanda.id_varietat = Varietat.objects.get(nom_pizza = d['Varietat'])
+            liniaComanda.save()
             if d['Varietat'] == 'Al Gust':                
                 for i in d['Ingredient']:
-                    liniaComanda.id_ingredient.add(Ingredient.objects.filter(nom_ingredient = i))
-        liniaComanda.save()
+                    print Ingredient.objects.filter(nom_ingredient = i)
+                    liniaComanda.id_ingredient.add(Ingredient.objects.get(nom_ingredient = i))
         messages.add_message(request, messages.INFO, 'Comanda processada. El repartidor la portarà a la teva adreça.')
     pizzes = Varietat.objects.all()
     tipus = TipusPizza.objects.all()
@@ -64,9 +66,11 @@ def ConsultaTipusPizza(request):
 
 def LesMevesComandes(request):
     usuari = request.user
-    comandes = Comanda.objects.filter(client = usuari)
+    comandes = Comanda.objects.filter(client = usuari).order_by('data_comanda')
+    page = request.GET.get('page')
+    pagina = PaginarComanda(page, comandes, 2 )    
     liniaComanda = LiniaComanda.objects.all()
-    return render(request, 'Comanda/lesMevesComandes.html', {'comandes': comandes, 'liniaComanda': liniaComanda})
+    return render(request, 'Comanda/lesMevesComandes.html', {'comandes': pagina, 'liniaComanda': liniaComanda})
 
 def ComandesClients(request):
     comandes = Comanda.objects.all()
@@ -93,3 +97,13 @@ def EntrarProducte(request):
     pizza = Varietat.objects.all()
     ingredients = Ingredient.objects.all()
     return render(request, 'Comanda/entrarProducte.html', { 'pizza' : pizza, 'ingredients' : ingredients, 'formulariNovaPizza' : formulariNovaPizza, 'formulariNouIngredient' : formulariNouIngredient })
+
+def PaginarComanda(page, llista, num):
+    paginador = Paginator(llista, num)
+    try:
+        entrada = paginador.page(page)
+    except PageNotAnInteger:
+        entrada = paginador.page(1)
+    except EmptyPage:
+        entrada = paginador.page(paginador.num_pages)
+    return entrada
