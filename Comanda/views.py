@@ -6,8 +6,10 @@ from Comanda.models import TipusPizza, Ingredient, Varietat, Comanda, LiniaComan
 from Comanda.forms import AfegirPizza, AfegirIngredient
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core import serializers
 import json
 import datetime
+import time
 
 def NovaComanda(request):
     if request.method == 'POST':
@@ -16,7 +18,7 @@ def NovaComanda(request):
         comanda = Comanda()        
         comanda.client = request.user
         comanda.data_comanda = datetime.datetime.now()
-        comanda.hora_comanda = datetime.datetime.now()
+        comanda.hora_comanda = time.strftime("%H:%M:%S")
         comanda.import_comanda = dades['PreuTotal']
         comanda.comanda_pagada = dades['Pagat']
         comanda.comanda_entregada = dades['Entregada']
@@ -107,3 +109,9 @@ def PaginarComanda(page, llista, num):
     except EmptyPage:
         entrada = paginador.page(paginador.num_pages)
     return entrada
+
+def CopiaSeguretatComanda(request):    
+    llistat = list(Comanda.objects.filter(client = request.user))
+    data = serializers.serialize('xml', llistat)
+    return HttpResponse(data, content_type='application/xml')
+    
